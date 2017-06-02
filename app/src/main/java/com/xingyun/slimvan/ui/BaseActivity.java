@@ -83,6 +83,39 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
+     * 设置控件不可见
+     *
+     * @param v
+     */
+    public void gone(@NonNull View... v) {
+        for (int i = 0; i < v.length; i++) {
+            v[i].setVisibility(View.GONE);
+        }
+    }
+
+    /**
+     * 设置控件可见
+     *
+     * @param v
+     */
+    public void visible(@NonNull View... v) {
+        for (int i = 0; i < v.length; i++) {
+            v[i].setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 设置控件不可见
+     *
+     * @param v
+     */
+    public void invisible(@NonNull View... v) {
+        for (int i = 0; i < v.length; i++) {
+            v[i].setVisibility(View.INVISIBLE);
+        }
+    }
+
+    /**
      * 显示提示框
      *
      * @param message
@@ -93,7 +126,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             mProgressDialog.setCancelable(true);
         }
         mProgressDialog.setMessage(!TextUtils.isEmpty(message) ? message : "加载中");
-        mProgressDialog.setProgressDrawable(mContext.getResources().getDrawable(R.mipmap.ic_refresh));
         mProgressDialog.show();
     }
 
@@ -285,7 +317,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onStop();
         LogUtils.i(TAG, "onStop...");
     }
-
 
     @Override
     protected void onDestroy() {
