@@ -27,7 +27,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 public abstract class BaseActivity extends AppCompatActivity {
-    private final String TAG = this.getClass().getSimpleName();
+    protected final String TAG = this.getClass().getSimpleName();
 
     protected Context mContext;
 
@@ -45,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.i(TAG, TAG, "onCreate...");
+        LogUtils.d(TAG, "onCreate...");
         mContext = getApplicationContext();
         super.setContentView(R.layout.activity_base);
 
@@ -284,37 +284,37 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtils.i(TAG, "onResume...");
+        LogUtils.d(TAG, "onResume...");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        LogUtils.i(TAG, "onStart..");
+        LogUtils.d(TAG, "onStart..");
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        LogUtils.i(TAG, "onReStart...");
+        LogUtils.d(TAG, "onReStart...");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        LogUtils.i(TAG, "onPause...");
+        LogUtils.d(TAG, "onPause...");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        LogUtils.i(TAG, "onStop...");
+        LogUtils.d(TAG, "onStop...");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtils.i(TAG, "onDestroy...");
+        LogUtils.d(TAG, "onDestroy...");
         //解绑EventBus
         EventBus.getDefault().unregister(this);
     }

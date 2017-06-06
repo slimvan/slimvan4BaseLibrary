@@ -30,7 +30,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Fragment基类
  */
 public class BaseFragment extends Fragment {
-    private final String TAG = this.getClass().getSimpleName();
+    protected final String TAG = this.getClass().getSimpleName();
 
     protected Context mContext;
 
@@ -43,7 +43,7 @@ public class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        LogUtils.i(TAG, TAG, "onCreateView...");
+        LogUtils.d( TAG, "onCreateView...");
         mContext = getContext();
         //注册EventBus
         EventBus.getDefault().register(this);
@@ -261,51 +261,51 @@ public class BaseFragment extends Fragment {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtils.i(TAG, "onHiddenChanged-->isHidden? -->" + hidden + "...");
+        LogUtils.d(TAG, "onHiddenChanged-->isHidden? -->" + hidden + "...");
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        LogUtils.i(TAG, "onAttach...");
+        LogUtils.d(TAG, "onAttach...");
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        LogUtils.i(TAG, "onResume...");
+        LogUtils.d(TAG, "onResume...");
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        LogUtils.i(TAG, "onStart..");
+        LogUtils.d(TAG, "onStart..");
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
-        LogUtils.i(TAG, "onPause...");
+        LogUtils.d(TAG, "onPause...");
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        LogUtils.i(TAG, "onStop...");
+        LogUtils.d(TAG, "onStop...");
     }
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        LogUtils.i(TAG, "onDestroyView...");
+        LogUtils.d(TAG, "onDestroyView...");
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        LogUtils.i(TAG, "onDestroy...");
+        LogUtils.d(TAG, "onDestroy...");
         //解绑EventBus
         EventBus.getDefault().unregister(this);
     }

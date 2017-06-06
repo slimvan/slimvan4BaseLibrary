@@ -92,6 +92,13 @@ public abstract class BaseHeaderActivity extends BaseActivity implements View.On
     public abstract void onRightClick(View v);
 
     /**
+     * 隐藏标题栏左侧按钮
+     */
+    protected void hideLeftButton(){
+        ivBack.setVisibility(View.GONE);
+    }
+
+    /**
      * 隐藏标题栏右侧按钮
      */
     protected void hideRightButton() {

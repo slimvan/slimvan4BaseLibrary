@@ -11,20 +11,23 @@ import com.xingyun.slimvan.util.Utils;
 
 public class App extends Application {
     private static Context applicationContext;
+    private static App application;
 
-    public Context getApplicationContext() {
+    public static Context getContext() {
         return applicationContext;
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        applicationContext = this;
+        applicationContext = getApplicationContext();
+        application = this;
 
         init();
     }
 
     private void init() {
+        //工具类初始化
         Utils.init(applicationContext);
     }
 }
