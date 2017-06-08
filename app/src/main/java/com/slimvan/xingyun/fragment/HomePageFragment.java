@@ -9,19 +9,22 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.slimvan.xingyun.R;
-import com.slimvan.xingyun.bean.User;
+import com.slimvan.xingyun.bean.Test;
 import com.slimvan.xingyun.http.ApiService;
+import com.slimvan.xingyun.http.HttpConfig;
+import com.slimvan.xingyun.http.MSubscriber;
 import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.xingyun.slimvan.fragment.BaseFragment;
+import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 /**
  *
@@ -50,34 +53,44 @@ public class HomePageFragment extends BaseFragment {
     }
 
     private void requestPost() {
-        RetrofitBuilder.build(ApiService.class).createUser("slimvan","123456").enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.i("onResponse", response.toString());
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.i("onFailure", "onFailure");
-            }
-        });
-    }
-
-    private void requestGet() {
         Map<String, Object> params = new HashMap<>();
-        params.put("users","slimvan");
-        RetrofitBuilder.build(ApiService.class).getUsers(params).enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                Log.i("onResponse", response.toString());
-            }
+        params.put("name", "slimvan");
+        params.put("phoneNumber", "13751154240");
+        RetrofitBuilder.build(ApiService.class).
+                postRequest(HttpConfig.TEST, params).
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new MSubscriber<String>(mContext, true, true) {
+                    @Override
+                    public void onSuccess(String s) {
+                        LogUtils.i(TAG, s);
+                    }
 
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                Log.i("onFailure", "onFailure");
-            }
-        });
+                    @Override
+                    public void errorCallBack(Throwable e) {
+                        Log.i(TAG, "error");
+                    }
+                });
+
     }
+
+
+
+//    private void requestGet() {
+//        Map<String, Object> params = new HashMap<>();
+//        params.put("users", "slimvan");
+//        RetrofitBuilder.build(ApiService.class).getRequest("https://api.github.com/", params).enqueue(new Callback<String>() {
+//            @Override
+//            public void onResponse(Call<String> call, Response<String> response) {
+//                Log.i("onResponse", response.toString());
+//            }
+//
+//            @Override
+//            public void onFailure(Call<String> call, Throwable t) {
+//                Log.i("onFailure", "onFailure");
+//            }
+//        });
+//    }
 
     @Override
     public void onDestroyView() {

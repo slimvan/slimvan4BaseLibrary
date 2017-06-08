@@ -5,15 +5,13 @@ package com.slimvan.xingyun.http;
  */
 public class HttpConfig {
 
-//    private static String baseUrl = "https://api.github.com/";
-    private static String baseUrl = "http://api.tgy-test.xingyun.net/";
+    public static final String TAG = "okHttpLog";
 
-    public static String getBaseUrl() {
-        return baseUrl;
-    }
 
-    public void setBaseUrl(String baseUrl) {
-        this.baseUrl = baseUrl;
-    }
+    //    private static String baseUrl = "https://api.github.com/";
+    public static final String BASEURL = "http://api.tgy-test.xingyun.net/";
+
+
+    public static final String TEST = "test/Test";
 
 }

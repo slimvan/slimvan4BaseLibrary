@@ -1,25 +1,29 @@
 package com.slimvan.xingyun.http;
 
-import com.slimvan.xingyun.bean.User;
+import com.slimvan.xingyun.bean.Test;
 
 import java.util.Map;
 
 import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.Field;
+import retrofit2.Response;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
+import rx.Observable;
 
 public interface ApiService {
 
-    @GET("?")
-    Call<User> getUsers(@QueryMap Map<String,Object> params);
+    @GET("{url}")
+    Observable<String> getRequest(@Path("url") String url,
+                                  @QueryMap Map<String, Object> params);
 
-    @POST("test/Test")
+    @POST("{url}")
     @FormUrlEncoded
-    Call<User> createUser(@Field("username") String username, @Field("password") String password);
+    Observable<String> postRequest(@Path("url") String url,
+                                     @FieldMap Map<String, Object> params);
+
+
 }
