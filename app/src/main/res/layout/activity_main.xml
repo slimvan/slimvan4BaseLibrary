@@ -9,7 +9,7 @@
     <include
         layout="@layout/layout_base_title_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></include>
+        android:layout_height="56dp"></include>
 
     <FrameLayout
         android:id="@+id/fl_content"
@@ -17,21 +17,22 @@
         android:layout_height="0dp"
         android:layout_weight="1"></FrameLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/Green"></View>
+    <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0.5dp"-->
+        <!--android:background="@color/Green"></View>-->
 
     <LinearLayout
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
         <TextView
             android:id="@+id/tv_tab_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawablePadding="-15dp"
             android:drawableTop="@mipmap/ic_home"
             android:gravity="center"
             android:text="首页" />
@@ -41,6 +42,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawablePadding="-15dp"
             android:drawableTop="@mipmap/ic_forum"
             android:gravity="center"
             android:text="论坛" />
@@ -50,6 +52,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:drawablePadding="-15dp"
             android:drawableTop="@mipmap/ic_mine"
             android:gravity="center"
             android:text="我的" />

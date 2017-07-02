@@ -6,6 +6,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+        <item name="android:actionBarSize">56dp</item>
     </style>
 
     <!--加载提示框-->
@@ -19,34 +21,50 @@
     </style>
 
 
-    <!--toolbar样式-->
-    <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
-    </style>
-
-    <!--toolbar菜单样式-->
-    <style name="ToolbarPopTheme" parent="@style/Theme.AppCompat.Light">
+    <!--toolbar样式  暗色系-->
+    <style name="ToolbarDarkTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
         <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="android:textColor">@android:color/white</item> <!-- 溢出菜单的文字的颜色 -->
     </style>
 
-    <!--toolbar 菜单样式-->
+    <!--toolbar样式 亮色系-->
+    <style name="ToolbarLightTheme" parent="@style/Theme.AppCompat.Light">
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item> <!-- 溢出菜单的文字的颜色 -->
+        <item name="android:actionBarSize">56dp</item>
+    </style>
+
+    <!--toolbar menu样式-->
     <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
-        <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
+        <!--<item name="overlapAnchor">false</item>  &lt;!&ndash;设置不覆盖锚点&ndash;&gt;-->
+        <item name="android:dropDownVerticalOffset">2dp</item> <!--向下偏移距离-->
+        <item name="android:popupBackground">@color/colorPrimary</item>
+        <item name="actionMenuTextColor">#ffffff</item>
+        <item name="android:textColor">#ffffff</item>
     </style>
 
     <!--toolbar 按钮样式-->
     <style name="OverflowButtonStyle" parent="@android:style/Widget.ActionButton.Overflow">
-
         <item name="android:src">@mipmap/ic_more_vert</item>
     </style>
+
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="style_title_bar_title">
-        <item name="android:textSize">26dp</item>
+        <item name="android:textSize">24dp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
+
+    <style name="load_more_progress" parent="AppTheme">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorPrimaryDark">@color/colorAccent</item>
+    </style>
+
 </resources>

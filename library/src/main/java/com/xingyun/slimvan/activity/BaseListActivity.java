@@ -1,5 +1,6 @@
 package com.xingyun.slimvan.activity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -9,10 +10,15 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.xingyun.slimvan.R;
+import com.xingyun.slimvan.view.LoadMoreView;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
+/**
+ * 带标题头的列表页面基类
+ * 内置刷新布局和ListView 如果是其他样式列表 请自行实现。
+ */
 public abstract class BaseListActivity extends BaseHeaderActivity {
 
     protected ListView listView;
@@ -50,33 +56,29 @@ public abstract class BaseListActivity extends BaseHeaderActivity {
      * 初始化刷新布局
      */
     private void initRefreshLayout() {
-        ProgressLayout headView = new ProgressLayout(mContext);
-        refreshLayout.setHeaderView(headView);
-        LoadingView loadView = new LoadingView(mContext);
-        refreshLayout.setBottomView(loadView);
+        //悬浮刷新
+        refreshLayout.setFloatRefresh(true);
+        //越界回弹
+        refreshLayout.setEnableOverScroll(false);
 
-        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter(){
+        //刷新布局样式
+        ProgressLayout progressLayout = new ProgressLayout(mContext);
+        progressLayout.setColorSchemeColors(Color.parseColor("#FF4081"));
+        refreshLayout.setHeaderView(progressLayout);
+
+        //加载更多布局样式
+        refreshLayout.setBottomView(new LoadMoreView(mContext));
+
+        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
             @Override
             public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
                 refresh();
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        refreshLayout.finishRefreshing();
-//                    }
-//                },2000);
             }
 
 
             @Override
             public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
                 loadMore();
-//                new Handler().postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        refreshLayout.finishLoadmore();
-//                    }
-//                },2000);
             }
 
         });
@@ -85,18 +87,18 @@ public abstract class BaseListActivity extends BaseHeaderActivity {
     /**
      * 下拉刷新回调
      */
-    protected void refresh(){}
+    protected abstract void refresh();
 
     /**
      * 上拉加载更多回调
      */
-    protected void loadMore(){}
+    protected abstract void loadMore();
 
     /**
      * 停止下拉刷新
      */
-    protected void finishRefreshing(){
-        if(refreshLayout!=null){
+    protected void finishRefreshing() {
+        if (refreshLayout != null) {
             refreshLayout.finishRefreshing();
         }
     }
@@ -104,8 +106,8 @@ public abstract class BaseListActivity extends BaseHeaderActivity {
     /**
      * 停止加载更多
      */
-    protected void finishLoadMore(){
-        if(refreshLayout!=null){
+    protected void finishLoadMore() {
+        if (refreshLayout != null) {
             refreshLayout.finishLoadmore();
         }
     }

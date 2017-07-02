@@ -1,0 +1,29 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_share"
+        android:title="分享"
+        android:icon="@mipmap/refresh_loading01"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_more"
+        android:title="更多信息"
+        android:icon="@mipmap/refresh_loading01"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_send"
+        android:title="发送到"
+        android:icon="@mipmap/refresh_loading01"
+        app:actionLayout="@layout/menu_action_album_text"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_edit"
+        android:title="编辑"
+        app:actionLayout="@layout/menu_action_album_text"
+        app:showAsAction="never" />
+
+</menu>

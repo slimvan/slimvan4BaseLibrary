@@ -17,9 +17,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.xingyun.slimvan.R;
 import com.xingyun.slimvan.bean.MessageEvent;
-import com.xingyun.slimvan.enterface.PermissionsResultListener;
+import com.xingyun.slimvan.listener.PermissionsResultListener;
 import com.xingyun.slimvan.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,6 +36,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 加载提示框
      */
     private ProgressDialog mProgressDialog;
+    private SVProgressHUD mSVProgress;
 
 
     protected Context getContext() {
@@ -131,6 +133,26 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * 仿IOS加载提示框
+     */
+    public void showSVProgressHUD() {
+        if (mSVProgress == null) {
+            mSVProgress = new SVProgressHUD(this);
+        }
+        mSVProgress.showWithStatus("加载中", SVProgressHUD.SVProgressHUDMaskType.BlackCancel);
+        mSVProgress.show();
+    }
+
+    /**
+     * 隐藏仿IOS加载提示框
+     */
+    public void hideSVProgressHUD() {
+        if (mSVProgress != null && mSVProgress.isShowing()) {
+            mSVProgress.dismiss();
+        }
+    }
+
     private PermissionsResultListener mListener;
 
     private int mRequestCode;
@@ -143,6 +165,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param requestCode 申请标记值
      * @param listener    实现的接口
      */
+
     protected void requestPermissions(String desc, String[] permissions, int requestCode, PermissionsResultListener listener) {
         if (permissions == null || permissions.length == 0) {
             return;

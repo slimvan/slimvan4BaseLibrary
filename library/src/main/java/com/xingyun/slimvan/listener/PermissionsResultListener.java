@@ -1,4 +1,4 @@
-package com.xingyun.slimvan.enterface;
+package com.xingyun.slimvan.listener;
 
 public interface PermissionsResultListener {
 

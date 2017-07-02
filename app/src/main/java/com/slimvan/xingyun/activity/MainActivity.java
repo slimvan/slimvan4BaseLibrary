@@ -1,5 +1,6 @@
 package com.slimvan.xingyun.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -8,12 +9,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bigkoo.alertview.AlertView;
+import com.bigkoo.alertview.OnItemClickListener;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.fragment.ForumFragment;
 import com.slimvan.xingyun.fragment.HomePageFragment;
 import com.slimvan.xingyun.fragment.PersonalFragment;
 import com.xingyun.slimvan.activity.BaseFragmentActivity;
-import com.xingyun.slimvan.util.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +51,7 @@ public class MainActivity extends BaseFragmentActivity {
         ButterKnife.inject(this);
 
         initTitleBar();
-        showFragment(fragments.get(0),false);
+        showFragment(fragments.get(0), false);
 
     }
 
@@ -79,17 +81,58 @@ public class MainActivity extends BaseFragmentActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title_right:
-                ToastUtils.showShort("尚未开放");
+//                ViewUtils.commonTimePicker(MainActivity.this);
+                showAlertDialog();
                 break;
             case R.id.tv_tab_1:
-                showFragment(fragments.get(0),false);
+                showFragment(fragments.get(0), false);
                 break;
             case R.id.tv_tab_2:
-                showFragment(fragments.get(1),false);
+                showFragment(fragments.get(1), false);
                 break;
             case R.id.tv_tab_3:
-                showFragment(fragments.get(2),false);
+                showFragment(fragments.get(2), false);
                 break;
         }
     }
+
+    private void showAlertDialog() {
+        //或者builder模式创建
+        new AlertView.Builder().setContext(MainActivity.this)
+                .setStyle(AlertView.Style.Alert)
+                .setTitle("Title")
+                .setMessage("Message")
+                .setCancelText("取消")
+//                .setOthers(new String[]{"确定"})
+                .setOthers(new String[]{"一环", "二环", "三环", "四环", "五环", "比五环多一环"})
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(Object o, int position) {
+                        Intent intent;
+                        switch (position) {
+                            case 0:
+                                intent = new Intent(mContext, ListActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 1:
+                                intent = new Intent(mContext, SecondActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 2:
+                                intent = new Intent(mContext, ToolBarActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 3:
+                                intent = new Intent(mContext, AppBarActivity.class);
+                                startActivity(intent);
+                                break;
+                        }
+                    }
+                })
+                .build()
+                .setCancelable(true)
+                .show();
+
+    }
+
 }

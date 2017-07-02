@@ -17,7 +17,7 @@
         <activity android:name=".activity.BaseActivity" />
         <activity android:name=".activity.BaseHeaderActivity" />
         <activity android:name=".activity.BaseListActivity" />
-        <activity android:name=".activity.BaseFragmentActivity"></activity>
+        <activity android:name=".activity.BaseFragmentActivity" />
     </application>
 
 </manifest>

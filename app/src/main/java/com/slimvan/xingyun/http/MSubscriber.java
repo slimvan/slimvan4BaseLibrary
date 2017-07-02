@@ -6,6 +6,10 @@ import android.content.DialogInterface;
 import android.text.TextUtils;
 
 import com.xingyun.slimvan.util.LogUtils;
+import com.xingyun.slimvan.util.ToastUtils;
+
+import java.net.SocketTimeoutException;
+import java.net.UnknownHostException;
 
 import rx.Subscriber;
 
@@ -72,11 +76,22 @@ public abstract class MSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
-        //暂时不知道有啥用
+        if (mProgressDialog != null) {
+            if (mProgressDialog.isShowing()) {
+                hideProgressDialog();
+            }
+        }
     }
 
     @Override
     public void onError(Throwable e) {
+
+        if (e instanceof UnknownHostException) { //无网络
+            ToastUtils.showShort("请检查网络");
+        }else if(e instanceof SocketTimeoutException){
+            ToastUtils.showShort("网络连接超时"); //网络连接超时
+        }
+
         //隐藏加载框
         hideProgressDialog();
         errorCallBack(e);

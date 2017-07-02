@@ -20,7 +20,7 @@ import android.view.ViewGroup;
 
 import com.xingyun.slimvan.R;
 import com.xingyun.slimvan.bean.MessageEvent;
-import com.xingyun.slimvan.enterface.PermissionsResultListener;
+import com.xingyun.slimvan.listener.PermissionsResultListener;
 import com.xingyun.slimvan.util.LogUtils;
 
 import org.greenrobot.eventbus.EventBus;

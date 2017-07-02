@@ -1,0 +1,9 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="分享"/>
+
+    <item
+        android:title="编辑"/>
+
+</menu>

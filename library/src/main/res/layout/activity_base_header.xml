@@ -3,12 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/ll_root"
     android:orientation="vertical"
     tools:context="com.xingyun.slimvan.activity.BaseActivity">
 
-    <include layout="@layout/layout_base_title_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></include>
+    <include
+        layout="@layout/layout_base_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"></include>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"></LinearLayout>
+
+        <ViewStub
+            android:id="@+id/viewStub"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inflatedId="@+id/layout_states"
+            android:layout="@layout/layout_states" />
+
+    </FrameLayout>
 
 </LinearLayout>

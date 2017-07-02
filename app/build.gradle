@@ -20,6 +20,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    tasks.whenTaskAdded { task ->
+        if (task.name.contains("lint")
+                //如果instant run不生效，把clean这行干掉
+                //                || task.name.equals("clean")
+                //如果项目中有用到aidl则不可以舍弃这个任务
+                || task.name.contains("Aidl")
+                //用不到测试的时候就可以先关闭
+                || task.name.contains("mockableAndroidJar")
+                || task.name.contains("UnitTest")
+                || task.name.contains("AndroidTest")
+                //用不到NDK和JNI的也关闭掉
+                || task.name.contains("Ndk")
+                || task.name.contains("Jni")
+        ) {
+            task.enabled = false
+        }
+    }
+}
+
+android {
+
 }
 
 dependencies {
@@ -31,20 +53,13 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:25.3.1'
-
-    //retrofit
     compile 'com.squareup.retrofit2:converter-gson:2.3.0'
     compile 'com.squareup.retrofit2:converter-scalars:2.3.0'
     compile 'com.squareup.retrofit2:retrofit:2.3.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    //retrofit
-
-    //rxjava
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'com.squareup.retrofit2:adapter-rxjava:2.3.0'
-    //rxjava
-
-
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.20'
     testCompile 'junit:junit:4.12'
 }
