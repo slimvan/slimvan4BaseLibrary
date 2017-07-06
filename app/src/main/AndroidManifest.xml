@@ -3,6 +3,8 @@
     package="com.slimvan.xingyun">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +23,9 @@
         <activity android:name=".activity.ListActivity" />
         <activity android:name=".activity.SecondActivity" />
         <activity android:name=".activity.ToolBarActivity" />
-        <activity android:name=".activity.AppBarActivity"></activity>
+        <activity android:name=".activity.AppBarActivity" />
+        <activity android:name=".activity.CoordinatorActivity" />
+        <activity android:name=".activity.CardBagActivity"></activity>
     </application>
 
 </manifest>

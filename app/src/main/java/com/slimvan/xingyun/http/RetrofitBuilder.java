@@ -1,5 +1,7 @@
 package com.slimvan.xingyun.http;
 
+import com.slimvan.xingyun.http.api.HttpConfig;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,7 +21,7 @@ public class RetrofitBuilder {
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .baseUrl(HttpConfig.BASEURL)
+                    .baseUrl(HttpConfig.DOUBAN_V2)
                     .build();
         }
         return retrofit.create(clzz);

@@ -20,27 +20,27 @@ import com.xingyun.slimvan.activity.BaseFragmentActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseFragmentActivity {
 
-    @InjectView(R.id.iv_back)
+    @BindView(R.id.iv_back)
     ImageView ivBack;
-    @InjectView(R.id.tv_title)
+    @BindView(R.id.tv_title)
     TextView tvTitle;
-    @InjectView(R.id.tv_title_right)
+    @BindView(R.id.tv_title_right)
     TextView tvTitleRight;
-    @InjectView(R.id.ll_title_bar)
+    @BindView(R.id.ll_title_bar)
     RelativeLayout llTitleBar;
-    @InjectView(R.id.fl_content)
+    @BindView(R.id.fl_content)
     FrameLayout flContent;
-    @InjectView(R.id.tv_tab_1)
+    @BindView(R.id.tv_tab_1)
     TextView tvTab1;
-    @InjectView(R.id.tv_tab_2)
+    @BindView(R.id.tv_tab_2)
     TextView tvTab2;
-    @InjectView(R.id.tv_tab_3)
+    @BindView(R.id.tv_tab_3)
     TextView tvTab3;
     private ArrayList<Fragment> fragments;
 
@@ -48,7 +48,7 @@ public class MainActivity extends BaseFragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         initTitleBar();
         showFragment(fragments.get(0), false);
@@ -124,6 +124,14 @@ public class MainActivity extends BaseFragmentActivity {
                                 break;
                             case 3:
                                 intent = new Intent(mContext, AppBarActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 4:
+                                intent = new Intent(mContext, CoordinatorActivity.class);
+                                startActivity(intent);
+                                break;
+                            case 5:
+                                intent = new Intent(mContext, CardBagActivity.class);
                                 startActivity(intent);
                                 break;
                         }

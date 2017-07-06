@@ -21,12 +21,11 @@
             android:layout_height="match_parent"
             android:orientation="vertical"></LinearLayout>
 
-        <ViewStub
-            android:id="@+id/viewStub"
+        <com.xingyun.slimvan.view.StateLayout
+            android:id="@+id/state_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inflatedId="@+id/layout_states"
-            android:layout="@layout/layout_states" />
+            android:visibility="gone" />
 
     </FrameLayout>
 

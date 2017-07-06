@@ -48,7 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         LogUtils.d(TAG, "onCreate...");
-        mContext = getApplicationContext();
+        mContext = this;
         super.setContentView(R.layout.activity_base);
 
         initIntentParams(getIntent());

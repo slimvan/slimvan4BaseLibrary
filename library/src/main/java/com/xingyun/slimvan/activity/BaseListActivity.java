@@ -7,13 +7,9 @@ import android.widget.ListView;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.footer.LoadingView;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.xingyun.slimvan.R;
 import com.xingyun.slimvan.view.LoadMoreView;
-
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * 带标题头的列表页面基类
@@ -36,7 +32,6 @@ public abstract class BaseListActivity extends BaseHeaderActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base_list);
-        ButterKnife.inject(this);
 
         initViews();
         initRefreshLayout();

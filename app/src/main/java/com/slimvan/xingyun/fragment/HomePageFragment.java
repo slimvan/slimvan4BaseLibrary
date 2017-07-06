@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.slimvan.xingyun.R;
-import com.slimvan.xingyun.bean.Test;
-import com.slimvan.xingyun.http.ApiService;
-import com.slimvan.xingyun.http.HttpConfig;
+import com.slimvan.xingyun.http.api.ApiService;
+import com.slimvan.xingyun.http.api.HttpConfig;
 import com.slimvan.xingyun.http.MSubscriber;
 import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.xingyun.slimvan.fragment.BaseFragment;
@@ -20,9 +19,9 @@ import com.xingyun.slimvan.util.LogUtils;
 import java.util.HashMap;
 import java.util.Map;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
-import retrofit2.Response;
+import butterknife.Unbinder;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -32,8 +31,9 @@ import rx.schedulers.Schedulers;
 public class HomePageFragment extends BaseFragment {
 
 
-    @InjectView(R.id.tv_text)
+    @BindView(R.id.tv_text)
     TextView tvText;
+    Unbinder unbinder;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -44,11 +44,11 @@ public class HomePageFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home_page, container, false);
-        ButterKnife.inject(this, view);
 
 //        requestGet();
         requestPost();
 
+        unbinder = ButterKnife.bind(this, view);
         return view;
     }
 
@@ -75,7 +75,6 @@ public class HomePageFragment extends BaseFragment {
     }
 
 
-
 //    private void requestGet() {
 //        Map<String, Object> params = new HashMap<>();
 //        params.put("users", "slimvan");
@@ -95,6 +94,6 @@ public class HomePageFragment extends BaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        ButterKnife.reset(this);
+        unbinder.unbind();
     }
 }

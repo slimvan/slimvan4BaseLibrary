@@ -1,49 +1,55 @@
 package com.slimvan.xingyun.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
-import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
-import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.adapter.RecyclerListAdapter;
+import com.slimvan.xingyun.bean.DoubanBookList;
+import com.slimvan.xingyun.http.MSubscriber;
+import com.slimvan.xingyun.http.RetrofitBuilder;
+import com.slimvan.xingyun.http.api.DoubanApi;
 import com.xingyun.slimvan.activity.BaseActivity;
-import com.xingyun.slimvan.util.ToastUtils;
-import com.xingyun.slimvan.view.DividerItemDecoration;
-import com.xingyun.slimvan.view.LoadMoreView;
+import com.xingyun.slimvan.bean.PopupListBean;
+import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
 public class ToolBarActivity extends BaseActivity {
 
-    @InjectView(R.id.toolbar)
+    @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @InjectView(R.id.recyclerView)
+    @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @InjectView(R.id.refreshLayout)
-    TwinklingRefreshLayout refreshLayout;
+    @BindView(R.id.refreshLayout)
+    SwipeRefreshLayout refreshLayout;
+
     private RecyclerListAdapter adapter;
+    private int currentPage = 1;
+    private ArrayList<DoubanBookList.BooksBean> dataList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tool_bar);
-        ButterKnife.inject(this);
+        ButterKnife.bind(this);
 
         initToolBar();
         initRefreshLayout();
         initRecyclerView();
+        getData();
     }
 
     private void initToolBar() {
@@ -58,80 +64,97 @@ public class ToolBarActivity extends BaseActivity {
         toolbar.inflateMenu(R.menu.menu_top_right);
     }
 
-    private void initRefreshLayout() {
-        //悬浮刷新
-        refreshLayout.setFloatRefresh(true);
-        //越界回弹
-        refreshLayout.setEnableOverScroll(false);
-
-        //刷新布局样式
-        ProgressLayout progressLayout = new ProgressLayout(mContext);
-        progressLayout.setColorSchemeColors(Color.parseColor("#FF4081"));
-        refreshLayout.setHeaderView(progressLayout);
-
-        //加载更多布局样式
-        refreshLayout.setBottomView(new LoadMoreView(mContext));
-
-        //刷新、加载更多监听
-        refreshLayout.setOnRefreshListener(new RefreshListenerAdapter() {
-            @Override
-            public void onRefresh(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
+    private void getData() {
+        RetrofitBuilder.build(DoubanApi.class).
+                bookSearch("android").
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new MSubscriber<DoubanBookList>(mContext, true, false) {
                     @Override
-                    public void run() {
-                        refreshLayout.finishRefreshing();
+                    public void onSuccess(DoubanBookList bookList) {
+                        Log.i(TAG, "success");
+                        adapter.setNewData(bookList.getBooks());
                     }
-                }, 2000);
-            }
 
-            @Override
-            public void onLoadMore(final TwinklingRefreshLayout refreshLayout) {
-                new Handler().postDelayed(new Runnable() {
                     @Override
-                    public void run() {
-                        adapter.addData(getAddData());
-                        refreshLayout.finishLoadmore();
+                    public void errorCallBack(Throwable e) {
+                        Log.i(TAG, "error");
                     }
-                }, 2000);
-            }
-        });
+                });
     }
 
     private void initRecyclerView() {
-        List<String> dataList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            dataList.add(i + ">>item");
-        }
         adapter = new RecyclerListAdapter(dataList);
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
-        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
-
+        adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                if (currentPage <= 5) {
+                    LogUtils.i("onLoadMore", "onLoadMore");
+                    getMoreData();
+                } else {
+                    adapter.loadMoreEnd();
+                }
+            }
+        }, recyclerView);
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
-
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("点击了" + position);
-            }
-        });
-
-        adapter.setOnItemLongClickListener(new BaseQuickAdapter.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(BaseQuickAdapter adapter, View view, int position) {
-                ToastUtils.showShort("长按了" + position);
-                return true;
-            }
-        });
-        recyclerView.setFocusable(false);
+        adapter.disableLoadMoreIfNotFullPage(recyclerView);
     }
 
-    private List<String> getAddData() {
-        ArrayList<String> addData = new ArrayList<>();
-        for (int i = 0; i < 11; i++) {
-            addData.add("addItems>>");
-        }
-        return addData;
+
+    private void initRefreshLayout() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshData();
+            }
+        });
     }
+
+    private void refreshData() {
+        RetrofitBuilder.build(DoubanApi.class).
+                bookSearch("android").
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new MSubscriber<DoubanBookList>(mContext, true, false) {
+                    @Override
+                    public void onSuccess(DoubanBookList bookList) {
+                        Log.i(TAG, "success");
+                        adapter.setNewData(bookList.getBooks());
+                        currentPage = 1;
+                        adapter.disableLoadMoreIfNotFullPage(recyclerView);
+                        refreshLayout.setRefreshing(false);
+                    }
+
+                    @Override
+                    public void errorCallBack(Throwable e) {
+                        Log.i(TAG, "error");
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
+    }
+
+    private void getMoreData() {
+        RetrofitBuilder.build(DoubanApi.class).
+                bookSearch("村上春树").
+                subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new MSubscriber<DoubanBookList>(mContext, false, false) {
+                    @Override
+                    public void onSuccess(DoubanBookList bookList) {
+                        adapter.addData(bookList.getBooks());
+                        currentPage++;
+                        adapter.loadMoreComplete();
+                    }
+
+                    @Override
+                    public void errorCallBack(Throwable e) {
+                        Log.i(TAG, "error");
+                    }
+                });
+    }
+
+
 }

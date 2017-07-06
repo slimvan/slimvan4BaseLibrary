@@ -1,10 +1,13 @@
 package com.slimvan.xingyun.http;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.slimvan.xingyun.http.api.HttpConfig;
 import com.xingyun.slimvan.util.LogUtils;
 import com.xingyun.slimvan.util.ToastUtils;
 
@@ -67,6 +70,7 @@ public abstract class MSubscriber<T> extends Subscriber<T> {
     @Override
     public void onStart() {
         super.onStart();
+        LogUtils.i("MSubscriber", "onStart");
         if (loadingFlag) {
             if (mProgressDialog != null) {
                 mProgressDialog.show();
@@ -76,6 +80,7 @@ public abstract class MSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onCompleted() {
+        LogUtils.i("MSubscriber", "onCompleted");
         if (mProgressDialog != null) {
             if (mProgressDialog.isShowing()) {
                 hideProgressDialog();
@@ -85,11 +90,13 @@ public abstract class MSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onError(Throwable e) {
-
+        LogUtils.i("MSubscriber", "onError");
         if (e instanceof UnknownHostException) { //无网络
             ToastUtils.showShort("请检查网络");
-        }else if(e instanceof SocketTimeoutException){
+        } else if (e instanceof SocketTimeoutException) {
             ToastUtils.showShort("网络连接超时"); //网络连接超时
+        } else if (e instanceof IllegalStateException) {
+            ToastUtils.showShort("数据解析失败"); //json解析失败
         }
 
         //隐藏加载框
@@ -99,6 +106,7 @@ public abstract class MSubscriber<T> extends Subscriber<T> {
 
     @Override
     public void onNext(T t) {
+        LogUtils.i("MSubscriber", "onNext");
         //隐藏加载框
         hideProgressDialog();
         onSuccess(t);

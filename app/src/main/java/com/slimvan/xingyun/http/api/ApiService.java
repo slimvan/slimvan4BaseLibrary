@@ -1,4 +1,4 @@
-package com.slimvan.xingyun.http;
+package com.slimvan.xingyun.http.api;
 
 import com.slimvan.xingyun.bean.Test;
 

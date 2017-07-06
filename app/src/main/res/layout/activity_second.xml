@@ -6,17 +6,17 @@
     android:orientation="vertical"
     tools:context="com.slimvan.xingyun.activity.SecondActivity">
 
-    <TimePicker
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></TimePicker>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <DatePicker
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></DatePicker>
+        <android.support.v7.widget.RecyclerView
+            android:background="#ffffff"
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-    <SearchView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></SearchView>
 
 </LinearLayout>
