@@ -60,7 +60,7 @@ public class MainActivity extends BaseFragmentActivity {
      */
     private void initTitleBar() {
         ivBack.setVisibility(View.GONE);
-        tvTitle.setText("HoopChina");
+        tvTitle.setText("Professor");
     }
 
     @Override

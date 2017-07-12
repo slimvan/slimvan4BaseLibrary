@@ -15,15 +15,24 @@ public class RetrofitBuilder {
     private static Retrofit retrofit;
 
     public static <T> T build(Class<T> clzz) {
-        if (retrofit == null) {
-            retrofit = new Retrofit.Builder()
-                    .client(RetrofitClient.createClient())
-                    .addConverterFactory(ScalarsConverterFactory.create())
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                    .baseUrl(HttpConfig.DOUBAN_V2)
-                    .build();
-        }
+        retrofit = new Retrofit.Builder()
+                .client(RetrofitClient.createClient())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(HttpConfig.DOUBAN_V2)
+                .build();
+        return retrofit.create(clzz);
+    }
+
+    public static <T> T build2(Class<T> clzz) {
+        retrofit = new Retrofit.Builder()
+                .client(RetrofitClient.createClient())
+                .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .baseUrl(HttpConfig.GANK)
+                .build();
         return retrofit.create(clzz);
     }
 

@@ -9,6 +9,7 @@ public class HttpConfig {
 
 
     //    private static String baseUrl = "https://api.github.com/";
+
     public static final String BASEURL = "http://api.tgy-test.xingyun.net/";
 
 
@@ -17,5 +18,9 @@ public class HttpConfig {
 //    https://api.douban.com/v2/book/search?q=android
 
     public static final String DOUBAN_V2 = "https://api.douban.com/v2/";
+
+//    http://gank.io/api/data/福利/10/1
+
+    public static final String GANK = "http://gank.io/api/data/";
 
 }
