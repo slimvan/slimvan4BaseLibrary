@@ -1,6 +1,6 @@
-# slimvan4BaseLibrary#
+# slimvan4BaseLibrary
 
-## 摘要##
+## 摘要
 
 + 常用Activity、Fragment基类封装
 + MD风格或是IOS风格的Progress加载框、右上角弹窗PopupWindow
@@ -8,9 +8,9 @@
 + 常用工具类集成
 + EventBus通信
 
-## 实现与介绍##
+## 实现与介绍
 
-### 界面###
+### 界面
 
 + [BaseActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/activity/BaseActivity.java)(Activity基类，默认只能竖屏显示，包含权限申请、控件批量隐藏显示、Android/IOS两种风格的加载框显示)
 + [BaseFragmentActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/activity/BaseFragmentActivity.java)(提供setFragments存储Fragment，通过hideFragment/ShowFragment控制界面的隐藏/显示，事件监听需要自行实现)
@@ -22,11 +22,22 @@
 
 
 
-### 网络模块###
+### 网络模块
 
 之前项目一直使用的是okHttp，此次尝试了一下Retrofit，目前在sample中有实现，后面会封装到Library中。
 
 目前Sample中已经实现了GsonConverter转换器和CallBack错误码统一处理。
+
+
+
+
+
+
+
+
+
+
+
 
 
 
