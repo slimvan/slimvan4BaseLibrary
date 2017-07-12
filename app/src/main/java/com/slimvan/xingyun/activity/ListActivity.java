@@ -90,7 +90,7 @@ public class ListActivity extends BaseHeaderActivity {
         //悬浮刷新
         refreshLayout.setFloatRefresh(true);
         //越界回弹
-        refreshLayout.setEnableOverScroll(false);
+        refreshLayout.setEnableOverScroll(true);
 
         //刷新布局样式
         ProgressLayout progressLayout = new ProgressLayout(mContext);
