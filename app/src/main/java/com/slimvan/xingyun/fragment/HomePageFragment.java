@@ -55,9 +55,9 @@ public class HomePageFragment extends BaseFragment {
         initRecyclerView();
         getData();
 
-
         return view;
     }
+
 
 
     private void getData() {
