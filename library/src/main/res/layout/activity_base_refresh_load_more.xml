@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.xingyun.slimvan.base.BaseRefreshLoadMoreActivity">
+
+    <android.support.v4.widget.NestedScrollView
+        android:id="@+id/ll_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:orientation="vertical"></android.support.v4.widget.NestedScrollView>
+
+</com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout>

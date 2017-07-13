@@ -11,7 +11,6 @@ import com.xingyun.slimvan.util.Utils;
 
 public class App extends Application {
     private static Context applicationContext;
-    private static App application;
 
     public static Context getContext() {
         return applicationContext;
@@ -21,7 +20,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         applicationContext = getApplicationContext();
-        application = this;
 
         init();
     }

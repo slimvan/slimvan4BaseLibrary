@@ -3,7 +3,6 @@ package com.slimvan.xingyun.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -13,14 +12,12 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.slimvan.xingyun.R;
-import com.slimvan.xingyun.adapter.RecyclerListAdapter;
-import com.slimvan.xingyun.bean.DoubanBookList;
 import com.slimvan.xingyun.bean.WelfareBean;
 import com.slimvan.xingyun.http.MSubscriber;
 import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.GankApi;
 import com.slimvan.xingyun.adapter.HomePageAdapter;
-import com.xingyun.slimvan.fragment.BaseFragment;
+import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;

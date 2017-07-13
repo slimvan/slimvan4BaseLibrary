@@ -1,4 +1,4 @@
-package com.xingyun.slimvan.activity;
+package com.xingyun.slimvan.base;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

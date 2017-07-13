@@ -15,26 +15,26 @@ import com.slimvan.xingyun.bean.DoubanBookList;
 import com.slimvan.xingyun.http.MSubscriber;
 import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.DoubanApi;
-import com.xingyun.slimvan.activity.BaseActivity;
-import com.xingyun.slimvan.bean.PopupListBean;
+import com.xingyun.slimvan.base.BaseActivity;
+import com.xingyun.slimvan.base.BaseRefreshActivity;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class ToolBarActivity extends BaseActivity {
+import static com.slimvan.xingyun.R.id.toolbar;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+/**
+ * 测试BaseRefreshActivity
+ */
+public class ToolBarActivity extends BaseRefreshActivity {
+
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.refreshLayout)
-    SwipeRefreshLayout refreshLayout;
 
     private RecyclerListAdapter adapter;
     private int currentPage = 1;
@@ -46,23 +46,25 @@ public class ToolBarActivity extends BaseActivity {
         setContentView(R.layout.activity_tool_bar);
         ButterKnife.bind(this);
 
-        initToolBar();
-        initRefreshLayout();
         initRecyclerView();
         getData();
     }
 
-    private void initToolBar() {
-        toolbar.setTitle("HoopChina");
-        toolbar.setNavigationIcon(R.mipmap.ic_back);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToolBarActivity.this.finish();
-            }
-        });
-        toolbar.inflateMenu(R.menu.menu_top_right);
+    @Override
+    public void onStateLayoutClick() {
+
     }
+
+    @Override
+    public void onLeftClick(View v) {
+
+    }
+
+    @Override
+    public void onRightClick(View v) {
+
+    }
+
 
     private void getData() {
         RetrofitBuilder.build(DoubanApi.class).
@@ -104,13 +106,10 @@ public class ToolBarActivity extends BaseActivity {
     }
 
 
-    private void initRefreshLayout() {
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                refreshData();
-            }
-        });
+
+    @Override
+    protected void onRefresh() {
+        refreshData();
     }
 
     private void refreshData() {
@@ -125,13 +124,13 @@ public class ToolBarActivity extends BaseActivity {
                         adapter.setNewData(bookList.getBooks());
                         currentPage = 1;
                         adapter.disableLoadMoreIfNotFullPage(recyclerView);
-                        refreshLayout.setRefreshing(false);
+                        finishRefresh();
                     }
 
                     @Override
                     public void errorCallBack(Throwable e) {
                         Log.i(TAG, "error");
-                        refreshLayout.setRefreshing(false);
+                        finishRefresh();
                     }
                 });
     }

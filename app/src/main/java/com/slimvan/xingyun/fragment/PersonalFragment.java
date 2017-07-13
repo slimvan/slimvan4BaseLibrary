@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.utils.GlideImageLoader;
-import com.xingyun.slimvan.fragment.BaseFragment;
+import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.yyydjk.library.BannerLayout;
 

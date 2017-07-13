@@ -1,4 +1,4 @@
-package com.xingyun.slimvan.activity;
+package com.xingyun.slimvan.base;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +20,9 @@ import com.xingyun.slimvan.view.StateLayout;
 
 import java.util.List;
 
+/**
+ * 顶部带有标题栏的Activity基类
+ */
 public abstract class BaseHeaderActivity extends BaseActivity implements View.OnClickListener {
 
     protected Context mContext;

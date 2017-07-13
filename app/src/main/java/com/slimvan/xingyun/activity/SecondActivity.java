@@ -15,7 +15,7 @@ import com.slimvan.xingyun.bean.DoubanBookList;
 import com.slimvan.xingyun.http.MSubscriber;
 import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.DoubanApi;
-import com.xingyun.slimvan.activity.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseHeaderActivity;
 import com.xingyun.slimvan.bean.PopupListBean;
 import com.xingyun.slimvan.util.LogUtils;
 

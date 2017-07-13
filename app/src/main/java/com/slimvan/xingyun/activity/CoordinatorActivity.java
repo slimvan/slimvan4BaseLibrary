@@ -14,7 +14,7 @@ import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.adapter.RecyclerViewAdapter;
-import com.xingyun.slimvan.activity.BaseActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.xingyun.slimvan.view.DividerItemDecoration;
 import com.xingyun.slimvan.view.LoadMoreView;

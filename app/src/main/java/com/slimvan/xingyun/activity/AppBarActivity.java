@@ -12,7 +12,7 @@ import android.support.v7.widget.Toolbar;
 
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.fragment.RecyclerListFragment;
-import com.xingyun.slimvan.activity.BaseActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

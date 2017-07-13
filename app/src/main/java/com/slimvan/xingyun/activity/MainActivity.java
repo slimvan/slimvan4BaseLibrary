@@ -15,7 +15,7 @@ import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.fragment.ForumFragment;
 import com.slimvan.xingyun.fragment.HomePageFragment;
 import com.slimvan.xingyun.fragment.PersonalFragment;
-import com.xingyun.slimvan.activity.BaseFragmentActivity;
+import com.xingyun.slimvan.base.BaseFragmentActivity;
 
 import java.util.ArrayList;
 import java.util.List;

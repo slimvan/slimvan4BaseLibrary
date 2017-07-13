@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.xingyun.slimvan.activity.BaseFragmentActivity">
+    tools:context="com.xingyun.slimvan.base.BaseFragmentActivity">
 
 </android.support.constraint.ConstraintLayout>

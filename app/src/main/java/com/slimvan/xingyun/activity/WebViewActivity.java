@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -16,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.slimvan.xingyun.R;
-import com.xingyun.slimvan.activity.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseHeaderActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

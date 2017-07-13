@@ -18,7 +18,7 @@ import com.slimvan.xingyun.bean.DoubanBookList;
 import com.slimvan.xingyun.http.MSubscriber;
 import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.DoubanApi;
-import com.xingyun.slimvan.fragment.BaseFragment;
+import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;

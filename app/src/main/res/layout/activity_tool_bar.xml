@@ -6,24 +6,11 @@
     android:orientation="vertical"
     tools:context="com.slimvan.xingyun.activity.ToolBarActivity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:background="@color/colorPrimaryDark"
-        android:layout_width="match_parent"
-        android:theme="@style/ToolbarLightTheme"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.Toolbar>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/refreshLayout"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.v7.widget.RecyclerView
-            android:background="#ffffff"
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:background="#ffffff"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

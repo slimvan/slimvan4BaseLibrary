@@ -1,23 +1,23 @@
-package com.xingyun.slimvan.activity;
+package com.xingyun.slimvan.base;
 
-import android.app.Activity;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
-import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.xingyun.slimvan.R;
 import com.xingyun.slimvan.bean.MessageEvent;
 import com.xingyun.slimvan.listener.PermissionsResultListener;
@@ -27,7 +27,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-public abstract class BaseActivity extends AppCompatActivity {
+/**
+ * Fragment基类
+ */
+public class BaseFragment extends Fragment {
     protected final String TAG = this.getClass().getSimpleName();
 
     protected Context mContext;
@@ -36,45 +39,22 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 加载提示框
      */
     private ProgressDialog mProgressDialog;
-    private SVProgressHUD mSVProgress;
-
-
-    protected Context getContext() {
-        return mContext;
-    }
-
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.d(TAG, "onCreate...");
-        mContext = this;
-        super.setContentView(R.layout.activity_base);
 
-        initIntentParams(getIntent());
-        //Activity竖屏
-        setActivityOrientation(this);
+        LogUtils.d(TAG, "onCreateView...");
+        mContext = getActivity();
         //注册EventBus
         EventBus.getDefault().register(this);
-
     }
 
-    /**
-     * 获取传参
-     *
-     * @param intent
-     */
-    protected void initIntentParams(Intent intent) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_base, container, false);
 
-    }
-
-    /**
-     * 设置屏幕只能竖屏
-     *
-     * @param activity activity
-     */
-    public void setActivityOrientation(Activity activity) {
-        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
     }
 
     /**
@@ -117,7 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void showProgressDialog(String message) {
         if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(BaseActivity.this, ProgressDialog.STYLE_SPINNER);
+            mProgressDialog = new ProgressDialog(getActivity(), ProgressDialog.STYLE_SPINNER);
             mProgressDialog.setCancelable(true);
         }
         mProgressDialog.setMessage(!TextUtils.isEmpty(message) ? message : "加载中");
@@ -133,26 +113,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 仿IOS加载提示框
-     */
-    public void showSVProgressHUD() {
-        if (mSVProgress == null) {
-            mSVProgress = new SVProgressHUD(this);
-        }
-        mSVProgress.showWithStatus("加载中", SVProgressHUD.SVProgressHUDMaskType.BlackCancel);
-        mSVProgress.show();
-    }
-
-    /**
-     * 隐藏仿IOS加载提示框
-     */
-    public void hideSVProgressHUD() {
-        if (mSVProgress != null && mSVProgress.isShowing()) {
-            mSVProgress.dismiss();
-        }
-    }
-
     private PermissionsResultListener mListener;
 
     private int mRequestCode;
@@ -165,7 +125,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param requestCode 申请标记值
      * @param listener    实现的接口
      */
-
     protected void requestPermissions(String desc, String[] permissions, int requestCode, PermissionsResultListener listener) {
         if (permissions == null || permissions.length == 0) {
             return;
@@ -198,7 +157,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (shouldShowRequestPermissionRationale(permissions)) {// 需要再次声明
             showRationaleDialog(desc, permissions, requestCode);
         } else {
-            ActivityCompat.requestPermissions(BaseActivity.this, permissions, requestCode);
+            ActivityCompat.requestPermissions(getActivity(), permissions, requestCode);
         }
     }
 
@@ -210,13 +169,13 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param requestCode
      */
     private void showRationaleDialog(String desc, final String[] permissions, final int requestCode) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(getString(R.string.tips))
                 .setMessage(desc)
                 .setPositiveButton(getResources().getString(R.string.confirm), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        ActivityCompat.requestPermissions(BaseActivity.this, permissions, requestCode);
+                        ActivityCompat.requestPermissions(getActivity(), permissions, requestCode);
                     }
                 })
                 .setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
@@ -238,7 +197,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     private boolean shouldShowRequestPermissionRationale(String[] permissions) {
         for (String permission : permissions) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
                 return true;
             }
         }
@@ -254,7 +213,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     private boolean checkEachSelfPermission(String[] permissions) {
         for (String permission : permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
                 return true;
             }
         }
@@ -305,42 +264,54 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        LogUtils.d(TAG, "onHiddenChanged-->isHidden? -->" + hidden + "...");
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        LogUtils.d(TAG, "onAttach...");
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
         LogUtils.d(TAG, "onResume...");
     }
 
     @Override
-    protected void onStart() {
+    public void onStart() {
         super.onStart();
         LogUtils.d(TAG, "onStart..");
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        LogUtils.d(TAG, "onReStart...");
-    }
 
     @Override
-    protected void onPause() {
+    public void onPause() {
         super.onPause();
         LogUtils.d(TAG, "onPause...");
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         super.onStop();
         LogUtils.d(TAG, "onStop...");
     }
 
+
     @Override
-    protected void onDestroy() {
+    public void onDestroyView() {
+        super.onDestroyView();
+        LogUtils.d(TAG, "onDestroyView...");
+    }
+
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         LogUtils.d(TAG, "onDestroy...");
         //解绑EventBus
         EventBus.getDefault().unregister(this);
     }
-
-
 }

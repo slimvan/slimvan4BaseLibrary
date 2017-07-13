@@ -14,10 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.BaseActivity" />
-        <activity android:name=".activity.BaseHeaderActivity" />
-        <activity android:name=".activity.BaseListActivity" />
-        <activity android:name=".activity.BaseFragmentActivity" />
+        <activity android:name=".base.BaseActivity" />
+        <activity android:name=".base.BaseHeaderActivity" />
+        <activity android:name=".base.BaseFragmentActivity" />
+        <activity android:name=".base.BaseRefreshActivity" />
+        <activity android:name=".base.BaseRefreshLoadMoreActivity"></activity>
     </application>
 
 </manifest>

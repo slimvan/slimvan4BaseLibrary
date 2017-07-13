@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.github.czy1121.view.TurnCardListView;
 import com.slimvan.xingyun.R;
-import com.xingyun.slimvan.activity.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseHeaderActivity;
 import com.xingyun.slimvan.util.ToastUtils;
 
 import butterknife.BindView;
