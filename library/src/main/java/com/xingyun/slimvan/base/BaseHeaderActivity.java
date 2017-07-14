@@ -267,7 +267,7 @@ public abstract class BaseHeaderActivity extends BaseActivity implements View.On
             }
         });
         popupWindow.setOutsideTouchable(true);
-        popupWindow.showAsDropDown(tvTitleRight, -120, -100);
+        popupWindow.showAsDropDown(tvTitleRight, -120, 0);
     }
 
     public interface PopupMenuItemClick {
