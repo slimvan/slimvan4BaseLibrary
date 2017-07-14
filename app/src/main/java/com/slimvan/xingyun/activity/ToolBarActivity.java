@@ -1,10 +1,8 @@
 package com.slimvan.xingyun.activity;
 
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
@@ -12,11 +10,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.adapter.RecyclerListAdapter;
 import com.slimvan.xingyun.bean.DoubanBookList;
-import com.slimvan.xingyun.http.MSubscriber;
-import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.DoubanApi;
-import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.base.BaseRefreshActivity;
+import com.xingyun.slimvan.http.MSubscriber;
+import com.xingyun.slimvan.http.RetrofitBuilder;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;
@@ -25,8 +22,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
-import static com.slimvan.xingyun.R.id.toolbar;
 
 /**
  * 测试BaseRefreshActivity

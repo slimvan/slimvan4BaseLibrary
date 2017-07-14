@@ -1,12 +1,14 @@
-package com.xingyun.slimvan.application;
+package com.slimvan.xingyun.application;
 
 import android.app.Application;
 import android.content.Context;
 
+import com.xingyun.slimvan.application.BaseLibrary;
+import com.xingyun.slimvan.http.HttpConfig;
 import com.xingyun.slimvan.util.Utils;
 
 /**
- * Created by xingyun on 2017/5/6.
+ * Created by xingyun on 2017/7/14.
  */
 
 public class App extends Application {
@@ -27,5 +29,7 @@ public class App extends Application {
     private void init() {
         //工具类初始化
         Utils.init(applicationContext);
+        //lib初始化
+        BaseLibrary.init(getContext());
     }
 }

@@ -81,7 +81,7 @@ public class MainActivity extends BaseFragmentActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title_right:
-//                ViewUtils.commonTimePicker(MainActivity.this);
+//                DialogHelper.commonTimePicker(MainActivity.this);
                 showAlertDialog();
                 break;
             case R.id.tv_tab_1:

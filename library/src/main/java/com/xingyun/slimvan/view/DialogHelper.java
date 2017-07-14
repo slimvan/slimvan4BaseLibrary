@@ -14,10 +14,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * 弹窗辅助工具类
  * Created by xingyun on 2017/6/9.
  */
 
-public class ViewUtils {
+public class DialogHelper {
 
     /**
      * 常用时间选择器

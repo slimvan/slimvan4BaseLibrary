@@ -14,6 +14,7 @@ import android.widget.FrameLayout;
 import com.xingyun.slimvan.R;
 
 /**
+ * 状态布局  目前实现三种状态：空布局、网络异常、服务器异常
  * Created by xingyun on 2017/7/6.
  */
 

@@ -13,11 +13,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.bean.WelfareBean;
-import com.slimvan.xingyun.http.MSubscriber;
-import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.GankApi;
 import com.slimvan.xingyun.adapter.HomePageAdapter;
 import com.xingyun.slimvan.base.BaseFragment;
+import com.xingyun.slimvan.http.HttpConfig;
+import com.xingyun.slimvan.http.MSubscriber;
+import com.xingyun.slimvan.http.RetrofitBuilder;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;
@@ -61,7 +62,7 @@ public class HomePageFragment extends BaseFragment {
 
 
     private void getData() {
-        RetrofitBuilder.build2(GankApi.class).gankData("福利", "10", currentPage).
+        RetrofitBuilder.build(GankApi.class, HttpConfig.GANK_BASE_URL).gankData("福利", "10", currentPage).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, true, true) {
@@ -110,7 +111,7 @@ public class HomePageFragment extends BaseFragment {
     }
 
     private void getMoreData() {
-        RetrofitBuilder.build2(GankApi.class).gankData("福利", "10", currentPage + 1).
+        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("福利", "10", currentPage + 1).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, false, true) {
@@ -132,7 +133,7 @@ public class HomePageFragment extends BaseFragment {
     }
 
     private void refreshData() {
-        RetrofitBuilder.build2(GankApi.class).gankData("福利", "10", currentPage).
+        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("福利", "10", currentPage).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, true, true) {

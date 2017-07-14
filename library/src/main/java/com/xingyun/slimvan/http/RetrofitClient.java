@@ -1,6 +1,6 @@
 package com.xingyun.slimvan.http;
 
-import com.xingyun.slimvan.application.App;
+import com.xingyun.slimvan.application.BaseLibrary;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.io.File;
@@ -27,7 +27,7 @@ public class RetrofitClient {
         client.readTimeout(20 * 1000, TimeUnit.MILLISECONDS);
         client.connectTimeout(15 * 1000, TimeUnit.MILLISECONDS);
         //设置缓存路径
-        File httpCacheDirectory = new File(App.getContext().getCacheDir(), "okhttpCache");
+        File httpCacheDirectory = new File(BaseLibrary.getContext().getCacheDir(), "okhttpCache");
         //设置缓存 10M
         Cache cache = new Cache(httpCacheDirectory, 10 * 1024 * 1024);
         client.cache(cache);

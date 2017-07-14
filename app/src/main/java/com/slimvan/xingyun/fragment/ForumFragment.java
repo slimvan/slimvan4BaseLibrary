@@ -17,10 +17,11 @@ import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.activity.WebViewActivity;
 import com.slimvan.xingyun.adapter.ForumAdapter;
 import com.slimvan.xingyun.bean.ForumBean;
-import com.slimvan.xingyun.http.MSubscriber;
-import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.GankApi;
 import com.xingyun.slimvan.base.BaseFragment;
+import com.xingyun.slimvan.http.HttpConfig;
+import com.xingyun.slimvan.http.MSubscriber;
+import com.xingyun.slimvan.http.RetrofitBuilder;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import retrofit2.http.HTTP;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -107,7 +109,7 @@ public class ForumFragment extends BaseFragment {
     }
 
     private void getData() {
-        RetrofitBuilder.build2(GankApi.class).gankData("all", "10", currentPage).
+        RetrofitBuilder.build(GankApi.class, HttpConfig.GANK_BASE_URL).gankData("all", "10", currentPage).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, true, true) {
@@ -129,7 +131,7 @@ public class ForumFragment extends BaseFragment {
 
 
     private void refreshData() {
-        RetrofitBuilder.build2(GankApi.class).gankData("all", "10", currentPage).
+        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("all", "10", currentPage).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, true, true) {
@@ -151,7 +153,7 @@ public class ForumFragment extends BaseFragment {
     }
 
     private void getMoreData() {
-        RetrofitBuilder.build2(GankApi.class).gankData("all", "10", currentPage + 1).
+        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("all", "10", currentPage + 1).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, false, true) {

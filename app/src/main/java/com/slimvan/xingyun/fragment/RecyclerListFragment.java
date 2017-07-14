@@ -15,10 +15,10 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.adapter.RecyclerListAdapter;
 import com.slimvan.xingyun.bean.DoubanBookList;
-import com.slimvan.xingyun.http.MSubscriber;
-import com.slimvan.xingyun.http.RetrofitBuilder;
 import com.slimvan.xingyun.http.api.DoubanApi;
 import com.xingyun.slimvan.base.BaseFragment;
+import com.xingyun.slimvan.http.MSubscriber;
+import com.xingyun.slimvan.http.RetrofitBuilder;
 import com.xingyun.slimvan.util.LogUtils;
 
 import java.util.ArrayList;

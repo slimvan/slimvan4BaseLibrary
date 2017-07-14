@@ -1,13 +1,14 @@
 package com.xingyun.slimvan.http;
 
 /**
- * Created by lin on 2016/11/28.
+ * 网络请求配置
  */
 public class HttpConfig {
 
     public static final String TAG = "okHttpLog";
 
+    public static String BASE_URL = "https://api.douban.com/v2/";
 
-    public static final String BASEURL = "";
+    public static String GANK_BASE_URL = "http://gank.io/api/data/";
 
 }

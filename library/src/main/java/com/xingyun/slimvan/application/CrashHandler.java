@@ -65,7 +65,7 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
             try {
                 //延迟2秒杀进程
                 Thread.sleep(2000);
-                Toast.makeText(mContext, "程序出错了~", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "程序出错了~", Toast.LENGTH_SHORT).show();
             } catch (InterruptedException e) {
                 Log.e(TAG, "error : ", e);
             }
