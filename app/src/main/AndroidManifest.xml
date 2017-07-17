@@ -27,7 +27,8 @@
         <activity android:name=".activity.AppBarActivity" />
         <activity android:name=".activity.CoordinatorActivity" />
         <activity android:name=".activity.CardBagActivity" />
-        <activity android:name=".activity.WebViewActivity"></activity>
+        <activity android:name=".activity.WebViewActivity" />
+        <activity android:name=".activity.DialogActivity"></activity>
     </application>
 
 </manifest>

@@ -1,13 +1,16 @@
 package com.slimvan.xingyun.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.slimvan.xingyun.R;
+import com.slimvan.xingyun.activity.DialogActivity;
 import com.slimvan.xingyun.utils.GlideImageLoader;
 import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.util.ToastUtils;
@@ -18,6 +21,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -29,6 +33,9 @@ public class PersonalFragment extends BaseFragment {
     Unbinder unbinder;
     @BindView(R.id.banner)
     BannerLayout banner;
+    @BindView(R.id.tv_dialog)
+    TextView tvDialog;
+
     private List<String> imageList;
 
     @Override
@@ -38,6 +45,7 @@ public class PersonalFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
 
         initBanner();
+
         return view;
     }
 
@@ -66,5 +74,11 @@ public class PersonalFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.tv_dialog)
+    public void onViewClicked() {
+        Intent intent = new Intent(mContext,DialogActivity.class);
+        startActivity(intent);
     }
 }

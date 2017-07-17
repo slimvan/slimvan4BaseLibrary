@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.slimvan.xingyun.fragment.PersonalFragment">
 
     <com.yyydjk.library.BannerLayout
@@ -21,5 +22,14 @@
         app:unSelectedIndicatorColor="#99ffffff"
         app:unSelectedIndicatorHeight="6dp"
         app:unSelectedIndicatorWidth="6dp" />
+
+    <TextView
+        android:id="@+id/tv_dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:padding="20dp"
+        android:text="Dialog"
+        android:textColor="#ffffff" />
 
 </LinearLayout>
