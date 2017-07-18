@@ -201,6 +201,15 @@ public class DialogHelper {
                 .show();
     }
 
+    /**
+     * 多选列表对话框
+     *
+     * @param mContext        上下文对象
+     * @param items           选择项
+     * @param choiceItems     默认选中项
+     * @param itemListener    列表项点击事件
+     * @param confirmListener 确认点击监听 返回选择的列表项 SparseBooleanArray类型
+     */
     public static void showMuliteChoiceDialog(Context mContext, String[] items, boolean[] choiceItems, DialogInterface.OnMultiChoiceClickListener itemListener, final DialogMultiConfirmClickListener confirmListener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMultiChoiceItems(items, choiceItems, itemListener)

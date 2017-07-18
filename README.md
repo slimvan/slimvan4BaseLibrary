@@ -21,9 +21,7 @@
 
 此外：所有的界面都实现了EventBus监听，只需在OnMessageEvent回调中，从MessageEvent中获取想要的数据，进行处理即可。
 
-## 
-
-### 
+##
 
 ### 网络模块
 
@@ -46,6 +44,127 @@ RetrofitBuilder.build(DoubanApi.class).
                 Log.i(TAG, "error");
             }
         });
+```
+
+##  
+
+### Dialog
+
+##### IOS风格底部ActionSheet
+
+```
+DialogHelper.showIOSActionSheetDialog(mContext, new String[]{"拍照", "相册中选取"}, new OnItemClickListener() {
+    @Override
+    public void onItemClick(Object o, int position) {
+        ToastUtils.showShort(position + "");
+    }
+});
+```
+
+##### IOS风格列表Dialog
+
+```
+DialogHelper.showIOSListDialog(mContext, "Title", new String[]{"第一项", "第二项", "第三项"}, new OnItemClickListener() {
+    @Override
+    public void onItemClick(Object o, int position) {
+        ToastUtils.showShort(position + "");
+    }
+});
+```
+
+##### IOS风格警告对话框
+
+```
+DialogHelper.showIOSAlertDialog(mContext, "Title", "Content", new OnItemClickListener() {
+    @Override
+    public void onItemClick(Object o, int position) {
+        ToastUtils.showShort(position + "");
+    }
+});
+```
+
+##### Android原生警告对话框
+
+```
+DialogHelper.showAlertDialog(mContext, "Title", "Content", new DialogConfirmClickListener() {
+    @Override
+    public void onDialogConfirmClick(DialogInterface dialog, int position) {
+        dialog.dismiss();
+        ToastUtils.showShort(position + "");
+    }
+});
+```
+
+##### Android原生列表对话框
+
+```
+DialogHelper.showListDialog(mContext, "Title", new String[]{"第一项", "第二项", "第三项"}, new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        dialog.dismiss();
+        ToastUtils.showShort(which + "");
+    }
+});
+```
+
+##### Android原生单选列表对话框
+
+```
+DialogHelper.showSingleChoiceDialog(mContext, new String[]{"第一项", "第二项", "第三项"}, 0, new DialogInterface.OnClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which) {
+        ToastUtils.showShort(which + "");
+    }
+}, new DialogConfirmClickListener() {
+    @Override
+    public void onDialogConfirmClick(DialogInterface dialog, int position) {
+        dialog.dismiss();
+        ToastUtils.showShort(position + "");
+    }
+});
+```
+
+##### Android原生多选列表对话框
+
+```
+DialogHelper.showMuliteChoiceDialog(mContext, new String[]{"第一项", "第二项", "第三项"}, new boolean[]{true, true, false}, new DialogInterface.OnMultiChoiceClickListener() {
+    @Override
+    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+        ToastUtils.showShort(which + "____isChecked____" + isChecked);
+    }
+}, new DialogMultiConfirmClickListener() {
+    @Override
+    public void onDialogMultiConfirmClick(DialogInterface dialog, SparseBooleanArray checkedItemPositions) {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < checkedItemPositions.size(); i++) {
+            boolean isCheck = checkedItemPositions.get(i);
+            sb.append(i + "--" + isCheck);
+            if (i < checkedItemPositions.size() - 1) {
+                sb.append(",");
+            }
+        }
+        ToastUtils.showShort(sb);
+        dialog.dismiss();
+    }
+});
+```
+
+##### 右上角菜单式弹窗
+
+```
+List<PopupListBean> menuItems = new ArrayList<>();
+menuItems.add(new PopupListBean("Settings"));
+menuItems.add(new PopupListBean("Settings"));
+menuItems.add(new PopupListBean("Settings"));
+menuItems.add(new PopupListBean("Settings"));
+showPopupMenu(menuItems, new PopupMenuItemClick() {
+    @Override
+    public void onPopupMenuItemClick(PopupWindow popupWindow, int position) {
+
+    }
+});
+
+*PopupListBean可以传入String类型的文字内容和int类型图片资源
 ```
 
 
