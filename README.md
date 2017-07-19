@@ -21,7 +21,7 @@
 
 此外：所有的界面都实现了EventBus监听，只需在OnMessageEvent回调中，从MessageEvent中获取想要的数据，进行处理即可。
 
-##
+#
 
 ### 网络模块
 
@@ -165,6 +165,28 @@ showPopupMenu(menuItems, new PopupMenuItemClick() {
 });
 
 *PopupListBean可以传入String类型的文字内容和int类型图片资源
+```
+
+##### 时间选择器
+
+```
+DialogHelper.showTimePicker(DialogActivity.this, new TimePickerConfirmListener() {
+    @Override
+    public void onTimePickerConfirm(String dateStr) {
+        ToastUtils.showShort(dateStr);
+    }
+});
+```
+
+##### 省市区三级联动选择器
+
+```
+DialogHelper.showAreaPicker(DialogActivity.this, new AreaPickerConfirmListener() {
+    @Override
+    public void onAreaPickerConfirm(String areaStr) {
+        ToastUtils.showShort(areaStr);
+    }
+});
 ```
 
 

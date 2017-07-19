@@ -9,8 +9,10 @@ import android.widget.TextView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.slimvan.xingyun.R;
 import com.xingyun.slimvan.base.BaseHeaderActivity;
+import com.xingyun.slimvan.listener.AreaPickerConfirmListener;
 import com.xingyun.slimvan.listener.DialogConfirmClickListener;
 import com.xingyun.slimvan.listener.DialogMultiConfirmClickListener;
+import com.xingyun.slimvan.listener.TimePickerConfirmListener;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.xingyun.slimvan.view.DialogHelper;
 
@@ -34,6 +36,10 @@ public class DialogActivity extends BaseHeaderActivity {
     TextView tvSingleChoiceDialog;
     @BindView(R.id.tv_multi_choice_dialog)
     TextView tvMultiChoiceDialog;
+    @BindView(R.id.tv_time_picker)
+    TextView tvTimePicker;
+    @BindView(R.id.tv_area_picker)
+    TextView tvAreaPicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +65,7 @@ public class DialogActivity extends BaseHeaderActivity {
 
     @OnClick({R.id.tv_ios_dialog, R.id.tv_ios_list_dialog
             , R.id.tv_ios_alert_dialog, R.id.tv_alert_dialog, R.id.tv_list_dialog, R.id.tv_single_choice_dialog
-            , R.id.tv_multi_choice_dialog})
+            , R.id.tv_multi_choice_dialog, R.id.tv_time_picker, R.id.tv_area_picker})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ios_dialog:
@@ -138,6 +144,22 @@ public class DialogActivity extends BaseHeaderActivity {
                         }
                         ToastUtils.showShort(sb);
                         dialog.dismiss();
+                    }
+                });
+                break;
+            case R.id.tv_time_picker:
+                DialogHelper.showTimePicker(DialogActivity.this, new TimePickerConfirmListener() {
+                    @Override
+                    public void onTimePickerConfirm(String dateStr) {
+                        ToastUtils.showShort(dateStr);
+                    }
+                });
+                break;
+            case R.id.tv_area_picker:
+                DialogHelper.showAreaPicker(DialogActivity.this, new AreaPickerConfirmListener() {
+                    @Override
+                    public void onAreaPickerConfirm(String areaStr) {
+                        ToastUtils.showShort(areaStr);
                     }
                 });
                 break;
