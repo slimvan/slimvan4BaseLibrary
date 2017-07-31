@@ -62,5 +62,6 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:3.2.5'
     compile 'com.bigkoo:svprogresshud:1.0.6'
     compile 'com.bigkoo:alertview:1.0.3'
+    compile 'com.zhy:okhttputils:2.6.2'
     testCompile 'junit:junit:4.12'
 }

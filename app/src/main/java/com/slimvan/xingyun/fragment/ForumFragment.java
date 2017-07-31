@@ -22,7 +22,11 @@ import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.http.HttpConfig;
 import com.xingyun.slimvan.http.MSubscriber;
 import com.xingyun.slimvan.http.RetrofitBuilder;
+import com.xingyun.slimvan.http.JavaBeanCallBack;
 import com.xingyun.slimvan.util.LogUtils;
+import com.zhy.http.okhttp.OkHttpUtils;
+import com.zhy.http.okhttp.callback.StringCallback;
+import com.zhy.http.okhttp.request.RequestCall;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +34,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import retrofit2.http.HTTP;
+import okhttp3.Call;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
@@ -60,9 +64,19 @@ public class ForumFragment extends BaseFragment {
         initRefreshLayout();
         initRecyclerView();
 
-        getData();
+//        getData();
+//        getDataByOkhttp();
+
 
         return view;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            getDataByOkhttp();
+        }
     }
 
     private void initRecyclerView() {
@@ -129,9 +143,34 @@ public class ForumFragment extends BaseFragment {
                 });
     }
 
+    /**
+     * okHttp get请求
+     */
+    private void getDataByOkhttp() {
+        RequestCall request = OkHttpUtils
+                .get()
+                .url(HttpConfig.GANK_BASE_URL + "all/10/1")
+                .build();
+                request.execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        ForumBean forumBean = new Gson().fromJson(response, ForumBean.class);
+                        if (forumBean != null) {
+                            adapter.setNewData(forumBean.getResults());
+                            adapter.disableLoadMoreIfNotFullPage(recyclerView);
+                        }
+                    }
+                });
+    }
+
 
     private void refreshData() {
-        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("all", "10", currentPage).
+        RetrofitBuilder.build(GankApi.class, HttpConfig.GANK_BASE_URL).gankData("all", "10", currentPage).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, true, true) {
@@ -153,7 +192,7 @@ public class ForumFragment extends BaseFragment {
     }
 
     private void getMoreData() {
-        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("all", "10", currentPage + 1).
+        RetrofitBuilder.build(GankApi.class, HttpConfig.GANK_BASE_URL).gankData("all", "10", currentPage + 1).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, false, true) {
