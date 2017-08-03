@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
- * Created by lin on 2016/11/28.
+ * Retrofit构造器
  */
 public class RetrofitClient {
 
@@ -32,6 +32,7 @@ public class RetrofitClient {
         Cache cache = new Cache(httpCacheDirectory, 10 * 1024 * 1024);
         client.cache(cache);
         //设置拦截器
+        client.addInterceptor(new MInterceptor());
         client.addInterceptor(new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
             @Override
             public void log(String message) {

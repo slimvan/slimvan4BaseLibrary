@@ -3,6 +3,8 @@ package com.xingyun.slimvan.http;
 
 import android.text.TextUtils;
 
+import com.google.gson.Gson;
+
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -27,6 +29,7 @@ public class RetrofitBuilder {
             retrofit = new Retrofit.Builder()
                     .client(RetrofitClient.createClient())
                     .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(new DecodeGsonConverterFactory(new Gson()))
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl(HttpConfig.BASE_URL)
@@ -51,6 +54,7 @@ public class RetrofitBuilder {
             retrofit = new Retrofit.Builder()
                     .client(RetrofitClient.createClient())
                     .addConverterFactory(ScalarsConverterFactory.create())
+                    .addConverterFactory(new DecodeGsonConverterFactory(new Gson()))
                     .addConverterFactory(GsonConverterFactory.create())
                     .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                     .baseUrl(BaseUrl)

@@ -22,6 +22,8 @@ import okhttp3.Response;
 
 /**
  * okHttp 响应 返回实体类
+ * <p>
+ * desc:使用okHttp作为网络框架时，响应直接返回java实体类，并对数据做了解密。
  *
  * @param <T>
  */

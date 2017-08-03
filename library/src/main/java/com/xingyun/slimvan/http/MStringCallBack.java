@@ -17,6 +17,8 @@ import okhttp3.Response;
 
 /**
  * okHttp 响应 返回String
+ * <p>
+ * desc:响应返回字符串，并对数据做了解密。
  * Created by xingyun on 2017/7/31.
  */
 

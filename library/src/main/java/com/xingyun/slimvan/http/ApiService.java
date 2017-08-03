@@ -10,6 +10,9 @@ import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 import rx.Observable;
 
+/**
+ * 通用请求接口
+ */
 public interface ApiService {
 
     @GET("{url}")
