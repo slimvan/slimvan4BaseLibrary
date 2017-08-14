@@ -47,6 +47,7 @@ android {
 allprojects {
     repositories {
         maven { url 'https://jitpack.io' }
+        jcenter()
     }
 }
 
@@ -64,6 +65,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.czy1121:turncardlistview:1.0.0'
     compile 'com.github.dongjunkun:BannerLayout:1.0.6'
+    compile 'com.zhihu.android:matisse:0.4.3'
+    compile 'com.google.android:flexbox:0.3.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

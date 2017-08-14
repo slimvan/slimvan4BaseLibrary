@@ -1,12 +1,18 @@
 package com.slimvan.xingyun.activity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bigkoo.alertview.OnItemClickListener;
+import com.bumptech.glide.Glide;
 import com.slimvan.xingyun.R;
 import com.xingyun.slimvan.base.BaseHeaderActivity;
 import com.xingyun.slimvan.listener.AreaPickerConfirmListener;
@@ -15,6 +21,11 @@ import com.xingyun.slimvan.listener.DialogMultiConfirmClickListener;
 import com.xingyun.slimvan.listener.TimePickerConfirmListener;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.xingyun.slimvan.view.DialogHelper;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,6 +33,7 @@ import butterknife.OnClick;
 
 public class DialogActivity extends BaseHeaderActivity {
 
+    private static final int REQUEST_CODE_CHOOSE = 101;
     @BindView(R.id.tv_ios_dialog)
     TextView tvIosDialog;
     @BindView(R.id.tv_ios_list_dialog)
@@ -40,6 +52,10 @@ public class DialogActivity extends BaseHeaderActivity {
     TextView tvTimePicker;
     @BindView(R.id.tv_area_picker)
     TextView tvAreaPicker;
+    @BindView(R.id.iv_photo_picker)
+    ImageView ivPhotoPicker;
+    @BindView(R.id.tv_flex_layout)
+    TextView tvFlexLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +81,8 @@ public class DialogActivity extends BaseHeaderActivity {
 
     @OnClick({R.id.tv_ios_dialog, R.id.tv_ios_list_dialog
             , R.id.tv_ios_alert_dialog, R.id.tv_alert_dialog, R.id.tv_list_dialog, R.id.tv_single_choice_dialog
-            , R.id.tv_multi_choice_dialog, R.id.tv_time_picker, R.id.tv_area_picker})
+            , R.id.tv_multi_choice_dialog, R.id.tv_time_picker, R.id.tv_area_picker, R.id.iv_photo_picker
+    ,R.id.tv_flex_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ios_dialog:
@@ -163,6 +180,34 @@ public class DialogActivity extends BaseHeaderActivity {
                     }
                 });
                 break;
+            case R.id.iv_photo_picker:
+                Matisse.from(DialogActivity.this)
+                        .choose(MimeType.allOf())
+                        .countable(true)
+                        .maxSelectable(9)
+                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                        .thumbnailScale(0.85f)
+                        .imageEngine(new GlideEngine())
+                        .forResult(REQUEST_CODE_CHOOSE);
+                break;
+            case R.id.tv_flex_layout:
+                Intent intent = new Intent(mContext,FlexLayoutActivity.class);
+                startActivity(intent);
+                break;
+        }
+    }
+
+    List<Uri> mSelected;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
+            mSelected = Matisse.obtainResult(data);
+            Log.d("Matisse", "mSelected: " + mSelected);
+            if (mSelected != null) {
+                Glide.with(mContext).load(mSelected.get(0)).into(ivPhotoPicker);
+            }
         }
     }
 

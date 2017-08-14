@@ -10,10 +10,12 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tv_ios_dialog"
                 android:layout_width="wrap_content"
@@ -102,6 +104,26 @@
                 android:padding="15dp"
                 android:text="AreaPicker"
                 android:textColor="#ffffff" />
+
+            <ImageView
+                android:id="@+id/iv_photo_picker"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/tv_flex_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorAccent"
+                android:padding="15dp"
+                android:text="FlexLayout"
+                android:textColor="#ffffff" />
+
         </LinearLayout>
     </ScrollView>
 
