@@ -43,7 +43,11 @@ public class DecodeGsonConverterFactory extends Converter.Factory {
     @Override
     public Converter<ResponseBody, ?> responseBodyConverter(Type type, Annotation[] annotations, Retrofit retrofit) {
         TypeAdapter<?> adapter = gson.getAdapter(TypeToken.get(type));
-        return new DecodeJsonResponseBodyConverter<>(gson, adapter); //响应
+        if (HttpConfig.SWITCH_ENCRYPT) {
+            return new DecodeJsonResponseBodyConverter<>(gson, adapter); //响应
+        } else {
+            return super.responseBodyConverter(type, annotations, retrofit);
+        }
     }
 
     @Nullable

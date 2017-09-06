@@ -1,10 +1,12 @@
 package com.slimvan.xingyun.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
@@ -19,7 +21,9 @@ import com.xingyun.slimvan.listener.AreaPickerConfirmListener;
 import com.xingyun.slimvan.listener.DialogConfirmClickListener;
 import com.xingyun.slimvan.listener.DialogMultiConfirmClickListener;
 import com.xingyun.slimvan.listener.TimePickerConfirmListener;
+import com.xingyun.slimvan.util.PhoneUtils;
 import com.xingyun.slimvan.util.ToastUtils;
+import com.xingyun.slimvan.util.Utils;
 import com.xingyun.slimvan.view.DialogHelper;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
@@ -30,6 +34,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.xingyun.slimvan.util.PhoneUtils.getIMEI;
 
 public class DialogActivity extends BaseHeaderActivity {
 
@@ -82,7 +88,7 @@ public class DialogActivity extends BaseHeaderActivity {
     @OnClick({R.id.tv_ios_dialog, R.id.tv_ios_list_dialog
             , R.id.tv_ios_alert_dialog, R.id.tv_alert_dialog, R.id.tv_list_dialog, R.id.tv_single_choice_dialog
             , R.id.tv_multi_choice_dialog, R.id.tv_time_picker, R.id.tv_area_picker, R.id.iv_photo_picker
-    ,R.id.tv_flex_layout})
+            , R.id.tv_flex_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ios_dialog:
@@ -165,6 +171,10 @@ public class DialogActivity extends BaseHeaderActivity {
                 });
                 break;
             case R.id.tv_time_picker:
+                TelephonyManager tm = (TelephonyManager) Utils.getContext()
+                        .getSystemService(Context.TELEPHONY_SERVICE);
+                tm.getSimSerialNumber();
+                ToastUtils.showShort(tm.getSimSerialNumber());
                 DialogHelper.showTimePicker(DialogActivity.this, new TimePickerConfirmListener() {
                     @Override
                     public void onTimePickerConfirm(String dateStr) {
@@ -191,7 +201,7 @@ public class DialogActivity extends BaseHeaderActivity {
                         .forResult(REQUEST_CODE_CHOOSE);
                 break;
             case R.id.tv_flex_layout:
-                Intent intent = new Intent(mContext,FlexLayoutActivity.class);
+                Intent intent = new Intent(mContext, FlexLayoutActivity.class);
                 startActivity(intent);
                 break;
         }
