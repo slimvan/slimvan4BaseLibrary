@@ -1,6 +1,7 @@
 package com.slimvan.xingyun.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
 import com.slimvan.xingyun.R;
+import com.slimvan.xingyun.activity.PhotoPreviewActivity;
 import com.slimvan.xingyun.bean.WelfareBean;
 import com.slimvan.xingyun.http.api.GankApi;
 import com.slimvan.xingyun.adapter.HomePageAdapter;
@@ -96,6 +98,27 @@ public class HomePageFragment extends BaseFragment {
 //        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
+
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                List<WelfareBean.ResultsBean> data = adapter.getData();
+                if (data != null) {
+                    ArrayList<String> images= new ArrayList<>();
+                    for (int i = 0; i < data.size(); i++) {
+                        WelfareBean.ResultsBean resultsBean = data.get(i);
+                        if (resultsBean != null) {
+                            String url = resultsBean.getUrl();
+                            images.add(url);
+                        }
+                    }
+                    Intent intent = new Intent(mContext, PhotoPreviewActivity.class);
+                    intent.putExtra("image_list",images);
+                    intent.putExtra("default_position",position);
+                    mContext.startActivity(intent);
+                }
+            }
+        });
     }
 
 

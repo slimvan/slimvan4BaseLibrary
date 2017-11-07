@@ -7,10 +7,17 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bilibili.boxing.Boxing;
+import com.bilibili.boxing.model.config.BoxingConfig;
+import com.bilibili.boxing.model.entity.BaseMedia;
+import com.bilibili.boxing_impl.ui.BoxingActivity;
+import com.bumptech.glide.Glide;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.activity.DialogActivity;
+import com.slimvan.xingyun.config.Constants;
 import com.slimvan.xingyun.utils.GlideImageLoader;
 import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.util.ToastUtils;
@@ -35,6 +42,8 @@ public class PersonalFragment extends BaseFragment {
     BannerLayout banner;
     @BindView(R.id.tv_dialog)
     TextView tvDialog;
+    @BindView(R.id.tv_webView)
+    ImageView tvWebView;
 
     private List<String> imageList;
 
@@ -48,6 +57,7 @@ public class PersonalFragment extends BaseFragment {
 
         return view;
     }
+
 
     private void initBanner() {
         imageList = new ArrayList<>();
@@ -64,7 +74,7 @@ public class PersonalFragment extends BaseFragment {
         banner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
             @Override
             public void onItemClick(int i) {
-                ToastUtils.showShort(i);
+                ToastUtils.showShort(i + "");
             }
         });
     }
@@ -76,9 +86,38 @@ public class PersonalFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick(R.id.tv_dialog)
-    public void onViewClicked() {
-        Intent intent = new Intent(mContext,DialogActivity.class);
-        startActivity(intent);
+    @OnClick({R.id.tv_dialog, R.id.tv_webView})
+    public void onViewClicked(View view) {
+        Intent intent;
+        switch (view.getId()) {
+            case R.id.tv_dialog:
+                intent = new Intent(mContext, DialogActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_webView:
+//                intent = new Intent(mContext, WebViewActivity.class);
+//                intent.putExtra("url", "http://api.tgy-test.xingyun.net/test/showinfo");
+//                startActivity(intent);
+                BoxingConfig config = new BoxingConfig(BoxingConfig.Mode.SINGLE_IMG);
+                // 启动缩略图界面, 依赖boxing-impl.
+                Boxing.of(config).withIntent(mContext, BoxingActivity.class).start(getActivity(), Constants.BOXING_IMAGE_REQUEST_CODE);
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case Constants.BOXING_IMAGE_REQUEST_CODE:
+                if (data != null) {
+                    List<BaseMedia> medias = Boxing.getResult(data);
+                    if (medias != null) {
+                        String path = medias.get(0).getPath();
+                        Glide.with(mContext).load(path).into(tvWebView);
+                    }
+                }
+                break;
+        }
     }
 }

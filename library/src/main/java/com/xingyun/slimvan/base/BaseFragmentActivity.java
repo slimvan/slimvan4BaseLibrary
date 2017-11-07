@@ -1,5 +1,6 @@
 package com.xingyun.slimvan.base;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -86,5 +87,11 @@ public abstract class BaseFragmentActivity extends BaseActivity {
      */
     protected abstract int setContainerId();
 
-
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        for (Fragment fragment : fragments) {
+            fragment.onActivityResult(requestCode,resultCode,data);
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

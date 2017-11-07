@@ -32,4 +32,11 @@
         android:text="Dialog"
         android:textColor="#ffffff" />
 
+    <ImageView
+        android:id="@+id/tv_webView"
+        android:layout_width="80dp"
+        android:scaleType="centerCrop"
+        android:layout_height="80dp"
+        android:background="@color/colorAccent" />
+
 </LinearLayout>

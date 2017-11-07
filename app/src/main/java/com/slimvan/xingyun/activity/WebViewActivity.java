@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.JsResult;
 import android.webkit.WebChromeClient;
@@ -38,6 +39,13 @@ public class WebViewActivity extends BaseHeaderActivity {
         webView.setWebViewClient(new myWebViewClient());
         initWebSettings();
         webView.loadUrl(url);
+
+
+        //测试修改webView UA
+        String userAgentString = webView.getSettings().getUserAgentString();
+        Log.i("userAgent:-->",userAgentString);
+        webView.getSettings().setUserAgentString(userAgentString+"XingyunTest/MicroMessenger/6.5.18");
+        Log.i("NewUserAgent:-->",webView.getSettings().getUserAgentString());
     }
 
     @Override
