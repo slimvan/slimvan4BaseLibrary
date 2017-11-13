@@ -1,8 +1,12 @@
 package com.slimvan.xingyun.fragment;
 
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -49,6 +53,11 @@ public class HomePageFragment extends BaseFragment {
     private List<WelfareBean.ResultsBean> dataList = new ArrayList<>();
     private int currentPage = 1;
 
+    public static HomePageFragment getInstance() {
+        HomePageFragment fragment = new HomePageFragment();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -60,7 +69,6 @@ public class HomePageFragment extends BaseFragment {
 
         return view;
     }
-
 
 
     private void getData() {
@@ -89,8 +97,8 @@ public class HomePageFragment extends BaseFragment {
         adapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
-                    LogUtils.i("onLoadMore", "onLoadMore");
-                    getMoreData();
+                LogUtils.i("onLoadMore", "onLoadMore");
+                getMoreData();
             }
         }, recyclerView);
         adapter.openLoadAnimation(BaseQuickAdapter.ALPHAIN);
@@ -104,7 +112,7 @@ public class HomePageFragment extends BaseFragment {
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 List<WelfareBean.ResultsBean> data = adapter.getData();
                 if (data != null) {
-                    ArrayList<String> images= new ArrayList<>();
+                    ArrayList<String> images = new ArrayList<>();
                     for (int i = 0; i < data.size(); i++) {
                         WelfareBean.ResultsBean resultsBean = data.get(i);
                         if (resultsBean != null) {
@@ -112,10 +120,19 @@ public class HomePageFragment extends BaseFragment {
                             images.add(url);
                         }
                     }
+//                    if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.LOLLIPOP){
+//                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(
+//                                getActivity(),view,"image");
+//                        Intent intent = new Intent(mContext, PhotoPreviewActivity.class);
+//                        intent.putExtra("image_list",images);
+//                        intent.putExtra("default_position",position);
+//                        ActivityCompat.startActivity(mContext,intent,options.toBundle());
+//                    }else {
                     Intent intent = new Intent(mContext, PhotoPreviewActivity.class);
-                    intent.putExtra("image_list",images);
-                    intent.putExtra("default_position",position);
+                    intent.putExtra("image_list", images);
+                    intent.putExtra("default_position", position);
                     mContext.startActivity(intent);
+//                }
                 }
             }
         });
@@ -134,7 +151,7 @@ public class HomePageFragment extends BaseFragment {
     }
 
     private void getMoreData() {
-        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("福利", "10", currentPage + 1).
+        RetrofitBuilder.build(GankApi.class, HttpConfig.GANK_BASE_URL).gankData("福利", "10", currentPage + 1).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, false, true) {
@@ -156,7 +173,7 @@ public class HomePageFragment extends BaseFragment {
     }
 
     private void refreshData() {
-        RetrofitBuilder.build(GankApi.class,HttpConfig.GANK_BASE_URL).gankData("福利", "10", currentPage).
+        RetrofitBuilder.build(GankApi.class, HttpConfig.GANK_BASE_URL).gankData("福利", "10", currentPage).
                 subscribeOn(Schedulers.io()).
                 observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new MSubscriber<String>(mContext, true, true) {

@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--通用颜色-->
+    <color name="main_color">#ec3a2d</color>
+    <color name="bg_color">#f4f4f4</color>
+    <color name="divider_color">#e4e4e4</color>
+    <color name="white">#ffffff</color>
+
+    <!--文字颜色-->
+    <color name="main_text_color">#000000</color>
+    <color name="text_color_333">#333333</color>
+    <color name="second_text_color">#999999</color>
 </resources>

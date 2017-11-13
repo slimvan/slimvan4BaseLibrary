@@ -2,6 +2,8 @@ package com.xingyun.slimvan.base;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,9 +36,10 @@ public abstract class BaseHeaderActivity extends BaseActivity implements View.On
     protected ImageView ivBack;
     protected TextView tvTitle;
     protected TextView tvTitleRight;
-    protected RelativeLayout llTitleBar;
-    private View v;
+    protected Toolbar toolbar;
     /*标题栏控件*/
+
+    private View v;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,7 +192,7 @@ public abstract class BaseHeaderActivity extends BaseActivity implements View.On
         ivBack = (ImageView) findViewById(R.id.iv_back);
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvTitleRight = (TextView) findViewById(R.id.tv_title_right);
-        llTitleBar = (RelativeLayout) findViewById(R.id.ll_title_bar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setTitleBarListeners();
     }
 

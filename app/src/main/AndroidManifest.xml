@@ -29,7 +29,9 @@
                 android:resource="@xml/boxing_file_provider" />
         </provider>
 
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/OptionsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -45,7 +47,8 @@
         <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.DialogActivity" />
         <activity android:name=".activity.FlexLayoutActivity" />
-        <activity android:name=".activity.PhotoPreviewActivity"></activity>
+        <activity android:name=".activity.PhotoPreviewActivity"/>
+        <activity android:name=".activity.ImageActivity"></activity>
     </application>
 
 </manifest>

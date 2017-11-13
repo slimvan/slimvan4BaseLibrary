@@ -11,6 +11,7 @@ import com.google.android.flexbox.FlexboxLayout;
 import com.slimvan.xingyun.R;
 import com.xingyun.slimvan.base.BaseHeaderActivity;
 import com.xingyun.slimvan.util.ConvertUtils;
+import com.xingyun.slimvan.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

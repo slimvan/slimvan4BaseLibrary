@@ -1,8 +1,13 @@
 package com.slimvan.xingyun.activity;
 
+import android.app.Application;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -11,11 +16,16 @@ import android.widget.TextView;
 
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
+import com.flyco.tablayout.CommonTabLayout;
+import com.flyco.tablayout.listener.CustomTabEntity;
+import com.flyco.tablayout.widget.MsgView;
 import com.slimvan.xingyun.R;
+import com.slimvan.xingyun.bean.TabEntity;
 import com.slimvan.xingyun.fragment.ForumFragment;
 import com.slimvan.xingyun.fragment.HomePageFragment;
 import com.slimvan.xingyun.fragment.PersonalFragment;
 import com.xingyun.slimvan.base.BaseFragmentActivity;
+import com.xingyun.slimvan.util.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,17 +42,25 @@ public class MainActivity extends BaseFragmentActivity {
     TextView tvTitle;
     @BindView(R.id.tv_title_right)
     TextView tvTitleRight;
-    @BindView(R.id.ll_title_bar)
-    RelativeLayout llTitleBar;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
     @BindView(R.id.fl_content)
     FrameLayout flContent;
-    @BindView(R.id.tv_tab_1)
-    TextView tvTab1;
-    @BindView(R.id.tv_tab_2)
-    TextView tvTab2;
-    @BindView(R.id.tv_tab_3)
-    TextView tvTab3;
+    @BindView(R.id.commonTabLayout)
+    CommonTabLayout commonTabLayout;
+
     private ArrayList<Fragment> fragments;
+    private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
+    private int[] mTitles = {R.string.tab_home, R.string.tab_forum, R.string.tab_mine};
+    private int[] mIconselectIds = {
+            R.mipmap.ic_home,
+            R.mipmap.ic_message,
+            R.mipmap.ic_mine,};
+
+    private int[] mIconUnSelectIds = {
+            R.mipmap.ic_home_1,
+            R.mipmap.ic_message_1,
+            R.mipmap.ic_mine_1};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +69,58 @@ public class MainActivity extends BaseFragmentActivity {
         ButterKnife.bind(this);
 
         initTitleBar();
-        showFragment(fragments.get(0), false);
+//        showFragment(fragments.get(0), false);
+        assignView();
+        testTips();
 
+    }
+
+    private void testTips() {
+        //设置购物右上角角标
+        commonTabLayout.showMsg(0, 1);
+        commonTabLayout.setMsgMargin(0, -8, 5);
+
+        commonTabLayout.showMsg(1, 2);
+        commonTabLayout.setMsgMargin(1, -8, 5);
+
+        commonTabLayout.showMsg(2, 3);
+        commonTabLayout.setMsgMargin(2, -8, 5);
+
+        //设置不同颜色的msgView
+        for (int i = 0; i < 3; i++) {
+            MsgView msgView = commonTabLayout.getMsgView(i);
+            if (msgView != null) {
+                switch (i){
+                    case 0:
+                        msgView.setBackgroundColor(Color.parseColor("#ec3a2d"));
+                        break;
+                    case 1:
+                        msgView.setBackgroundColor(Color.parseColor("#FF4081"));
+                        break;
+                    case 2:
+                        msgView.setBackgroundColor(Color.parseColor("#303F9F"));
+                        break;
+                }
+            }
+        }
+    }
+
+    /**
+     * 绑定底部导航栏
+     */
+    private void assignView() {
+        //添加Fragment
+        fragments = new ArrayList<>();
+        fragments.add(HomePageFragment.getInstance());
+        fragments.add(ForumFragment.getInstance());
+        fragments.add(PersonalFragment.getInstance());
+
+        for (int i = 0; i < mTitles.length; i++)
+        {
+            mTabEntities.add(new TabEntity(getString(mTitles[i]), mIconselectIds[i], mIconUnSelectIds[i]));
+        }
+        //此处会添加fragments中的Fragment到container中，所以取消serFragments中添加的部分。
+        commonTabLayout.setTabData(mTabEntities, this, R.id.fl_content, fragments);
     }
 
     /**
@@ -60,15 +128,15 @@ public class MainActivity extends BaseFragmentActivity {
      */
     private void initTitleBar() {
         ivBack.setVisibility(View.GONE);
-        tvTitle.setText("Professor");
+        tvTitle.setText(AppUtils.getAppName(mContext));
     }
 
     @Override
     protected List<Fragment> setFragments() {
         fragments = new ArrayList<>();
-        fragments.add(new HomePageFragment());
-        fragments.add(new ForumFragment());
-        fragments.add(new PersonalFragment());
+//        fragments.add(HomePageFragment.getInstance());
+//        fragments.add(ForumFragment.getInstance());
+//        fragments.add(PersonalFragment.getInstance());
         return fragments;
     }
 
@@ -77,21 +145,12 @@ public class MainActivity extends BaseFragmentActivity {
         return R.id.fl_content;
     }
 
-    @OnClick({R.id.iv_back, R.id.tv_title_right, R.id.tv_tab_1, R.id.tv_tab_2, R.id.tv_tab_3})
+    @OnClick({R.id.iv_back, R.id.tv_title_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title_right:
 //                DialogHelper.commonTimePicker(MainActivity.this);
                 showAlertDialog();
-                break;
-            case R.id.tv_tab_1:
-                showFragment(fragments.get(0), false);
-                break;
-            case R.id.tv_tab_2:
-                showFragment(fragments.get(1), false);
-                break;
-            case R.id.tv_tab_3:
-                showFragment(fragments.get(2), false);
                 break;
         }
     }
@@ -143,4 +202,18 @@ public class MainActivity extends BaseFragmentActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //处理back键不退出app
+            moveTaskToBack(false);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

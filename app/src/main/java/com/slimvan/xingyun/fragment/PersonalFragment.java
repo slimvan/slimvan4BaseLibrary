@@ -47,6 +47,11 @@ public class PersonalFragment extends BaseFragment {
 
     private List<String> imageList;
 
+    public static PersonalFragment getInstance(){
+        PersonalFragment personalFragment = new PersonalFragment();
+        return personalFragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,12 +100,9 @@ public class PersonalFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_webView:
-//                intent = new Intent(mContext, WebViewActivity.class);
-//                intent.putExtra("url", "http://api.tgy-test.xingyun.net/test/showinfo");
-//                startActivity(intent);
                 BoxingConfig config = new BoxingConfig(BoxingConfig.Mode.SINGLE_IMG);
                 // 启动缩略图界面, 依赖boxing-impl.
-                Boxing.of(config).withIntent(mContext, BoxingActivity.class).start(getActivity(), Constants.BOXING_IMAGE_REQUEST_CODE);
+                Boxing.of(config).withIntent(mContext, BoxingActivity.class).start(this, Constants.BOXING_IMAGE_REQUEST_CODE);
                 break;
         }
     }

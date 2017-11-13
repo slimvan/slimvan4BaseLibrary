@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context="com.slimvan.xingyun.activity.MainActivity">
 
@@ -17,45 +18,18 @@
         android:layout_height="0dp"
         android:layout_weight="1"></FrameLayout>
 
-    <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0.5dp"-->
-        <!--android:background="@color/Green"></View>-->
-
-    <LinearLayout
-        android:paddingBottom="10dp"
+    <com.flyco.tablayout.CommonTabLayout
+        android:id="@+id/commonTabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="50dp"
+        android:background="@color/bg_color"
+        app:tl_iconGravity="TOP"
+        app:tl_indicator_bounce_enable="true"
+        app:tl_indicator_height="0dp"
+        app:tl_textSelectColor="#088cca"
+        app:tl_textUnselectColor="@color/text_color_333"
+        app:tl_textsize="10sp"
+        app:tl_underline_gravity="TOP" ></com.flyco.tablayout.CommonTabLayout>
 
-        <TextView
-            android:id="@+id/tv_tab_1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="-15dp"
-            android:drawableTop="@mipmap/ic_home"
-            android:gravity="center"
-            android:text="首页" />
-
-        <TextView
-            android:id="@+id/tv_tab_2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="-15dp"
-            android:drawableTop="@mipmap/ic_forum"
-            android:gravity="center"
-            android:text="论坛" />
-
-        <TextView
-            android:id="@+id/tv_tab_3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawablePadding="-15dp"
-            android:drawableTop="@mipmap/ic_mine"
-            android:gravity="center"
-            android:text="我的" />
-    </LinearLayout>
 
 </LinearLayout>

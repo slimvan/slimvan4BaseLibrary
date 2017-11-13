@@ -147,4 +147,5 @@
             android:text="2312sdsad"></TextView>
 
     </com.google.android.flexbox.FlexboxLayout>
+
 </LinearLayout>

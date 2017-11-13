@@ -8,6 +8,7 @@
     android:clickable="true"
     android:elevation="10dp"
     android:foreground="?android:attr/selectableItemBackground"
+    android:transitionName="image"
     android:orientation="vertical">
 
     <ImageView

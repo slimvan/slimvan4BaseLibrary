@@ -33,6 +33,7 @@
         android:textColor="#ffffff" />
 
     <ImageView
+        android:layout_gravity="center_horizontal"
         android:id="@+id/tv_webView"
         android:layout_width="80dp"
         android:scaleType="centerCrop"

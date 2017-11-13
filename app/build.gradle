@@ -73,6 +73,7 @@ dependencies {
     compile 'top.zibin:Luban:1.1.1'
     compile 'com.github.chrisbanes:PhotoView:2.1.3'
     compile 'me.relex:circleindicator:1.2.2@aar'
+    compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

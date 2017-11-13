@@ -6,10 +6,7 @@
     android:orientation="vertical"
     tools:context="com.xingyun.slimvan.base.BaseActivity">
 
-    <include
-        layout="@layout/layout_base_title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"></include>
+    <include layout="@layout/layout_base_title_bar"></include>
 
     <FrameLayout
         android:layout_width="match_parent"

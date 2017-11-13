@@ -54,6 +54,11 @@ public class ForumFragment extends BaseFragment {
     private List<ForumBean.ResultsBean> dataList = new ArrayList<>();
     private int currentPage = 1;
 
+    public static ForumFragment getInstance() {
+        ForumFragment fragment = new ForumFragment();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
