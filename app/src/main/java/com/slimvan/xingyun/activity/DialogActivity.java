@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -21,7 +23,6 @@ import com.xingyun.slimvan.listener.AreaPickerConfirmListener;
 import com.xingyun.slimvan.listener.DialogConfirmClickListener;
 import com.xingyun.slimvan.listener.DialogMultiConfirmClickListener;
 import com.xingyun.slimvan.listener.TimePickerConfirmListener;
-import com.xingyun.slimvan.util.PhoneUtils;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.xingyun.slimvan.util.Utils;
 import com.xingyun.slimvan.view.DialogHelper;
@@ -34,8 +35,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static com.xingyun.slimvan.util.PhoneUtils.getIMEI;
 
 public class DialogActivity extends BaseHeaderActivity {
 
@@ -62,6 +61,8 @@ public class DialogActivity extends BaseHeaderActivity {
     ImageView ivPhotoPicker;
     @BindView(R.id.tv_flex_layout)
     TextView tvFlexLayout;
+    @BindView(R.id.tv_style_dialog)
+    TextView tvStyleDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class DialogActivity extends BaseHeaderActivity {
     @OnClick({R.id.tv_ios_dialog, R.id.tv_ios_list_dialog
             , R.id.tv_ios_alert_dialog, R.id.tv_alert_dialog, R.id.tv_list_dialog, R.id.tv_single_choice_dialog
             , R.id.tv_multi_choice_dialog, R.id.tv_time_picker, R.id.tv_area_picker, R.id.iv_photo_picker
-            , R.id.tv_flex_layout})
+            , R.id.tv_flex_layout,R.id.tv_style_dialog})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ios_dialog:
@@ -118,6 +119,15 @@ public class DialogActivity extends BaseHeaderActivity {
                 break;
             case R.id.tv_alert_dialog:
                 DialogHelper.showAlertDialog(mContext, "Title", "Content", new DialogConfirmClickListener() {
+                    @Override
+                    public void onDialogConfirmClick(DialogInterface dialog, int position) {
+                        dialog.dismiss();
+                        ToastUtils.showShort(position + "");
+                    }
+                });
+                break;
+            case R.id.tv_style_dialog:
+                DialogHelper.showAlertDialog(mContext, "Title", "Content", Color.parseColor("#ec3a2d"), new DialogConfirmClickListener() {
                     @Override
                     public void onDialogConfirmClick(DialogInterface dialog, int position) {
                         dialog.dismiss();

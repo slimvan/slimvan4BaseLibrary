@@ -3,17 +3,15 @@ package com.xingyun.slimvan.base;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.lcodecore.tkrefreshlayout.RefreshListenerAdapter;
 import com.lcodecore.tkrefreshlayout.TwinklingRefreshLayout;
 import com.lcodecore.tkrefreshlayout.header.progresslayout.ProgressLayout;
 import com.xingyun.slimvan.R;
-import com.xingyun.slimvan.view.LoadMoreView;
+import com.xingyun.slimvan.view.widget.LoadMoreView;
 
 /**
  * 下拉刷新、上拉加载功能的Activity基类

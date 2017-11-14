@@ -17,7 +17,7 @@ import com.slimvan.xingyun.adapter.RecyclerViewAdapter;
 import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.xingyun.slimvan.view.DividerItemDecoration;
-import com.xingyun.slimvan.view.LoadMoreView;
+import com.xingyun.slimvan.view.widget.LoadMoreView;
 
 import java.util.ArrayList;
 import java.util.List;

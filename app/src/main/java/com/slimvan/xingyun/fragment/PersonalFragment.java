@@ -17,6 +17,7 @@ import com.bilibili.boxing_impl.ui.BoxingActivity;
 import com.bumptech.glide.Glide;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.activity.DialogActivity;
+import com.slimvan.xingyun.activity.TipsDialogActivity;
 import com.slimvan.xingyun.config.Constants;
 import com.slimvan.xingyun.utils.GlideImageLoader;
 import com.xingyun.slimvan.base.BaseFragment;
@@ -44,10 +45,12 @@ public class PersonalFragment extends BaseFragment {
     TextView tvDialog;
     @BindView(R.id.tv_webView)
     ImageView tvWebView;
+    @BindView(R.id.tv_tips)
+    TextView tvTips;
 
     private List<String> imageList;
 
-    public static PersonalFragment getInstance(){
+    public static PersonalFragment getInstance() {
         PersonalFragment personalFragment = new PersonalFragment();
         return personalFragment;
     }
@@ -91,7 +94,7 @@ public class PersonalFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tv_dialog, R.id.tv_webView})
+    @OnClick({R.id.tv_dialog, R.id.tv_webView,R.id.tv_tips})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -103,6 +106,10 @@ public class PersonalFragment extends BaseFragment {
                 BoxingConfig config = new BoxingConfig(BoxingConfig.Mode.SINGLE_IMG);
                 // 启动缩略图界面, 依赖boxing-impl.
                 Boxing.of(config).withIntent(mContext, BoxingActivity.class).start(this, Constants.BOXING_IMAGE_REQUEST_CODE);
+                break;
+            case R.id.tv_tips:
+                intent = new Intent(mContext,TipsDialogActivity.class);
+                startActivity(intent);
                 break;
         }
     }
@@ -122,4 +129,5 @@ public class PersonalFragment extends BaseFragment {
                 break;
         }
     }
+
 }

@@ -18,7 +18,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"></LinearLayout>
 
-        <com.xingyun.slimvan.view.StateLayout
+        <com.xingyun.slimvan.view.widget.StateLayout
             android:id="@+id/state_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

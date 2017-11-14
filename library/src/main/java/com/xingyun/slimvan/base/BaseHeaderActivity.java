@@ -2,7 +2,6 @@ package com.xingyun.slimvan.base;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xingyun.slimvan.R;
 import com.xingyun.slimvan.adapter.PopupListAdapter;
 import com.xingyun.slimvan.bean.PopupListBean;
-import com.xingyun.slimvan.view.StateLayout;
+import com.xingyun.slimvan.view.widget.StateLayout;
 
 import java.util.List;
 

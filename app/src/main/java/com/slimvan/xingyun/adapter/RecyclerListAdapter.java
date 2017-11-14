@@ -7,7 +7,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.bean.DoubanBookList;
-import com.xingyun.slimvan.view.LoadMoreView;
 
 import java.util.List;
 

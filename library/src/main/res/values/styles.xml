@@ -67,4 +67,66 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
+
+
+    <style name="QMUI.TipDialog" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+    </style>
+
+
+    <style name="style_tips_dialog">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:minHeight">56dp</item>
+        <item name="android:minWidth">120dp</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingTop">12dp</item>
+    </style>
+
+
+    <style name="QMUI.Animation" parent="@android:style/Animation" />
+
+    <style name="QMUI.Animation.PopUpMenu" />
+
+    <style name="QMUI.Animation.PopUpMenu.Center">
+        <item name="android:windowEnterAnimation">@anim/grow_from_bottom</item>
+        <item name="android:windowExitAnimation">@anim/shrink_from_top</item>
+    </style>
+
+    <style name="QMUI.Animation.PopUpMenu.Left">
+        <item name="android:windowEnterAnimation">@anim/grow_from_bottomleft_to_topright</item>
+        <item name="android:windowExitAnimation">@anim/shrink_from_topright_to_bottomleft</item>
+    </style>
+
+    <style name="QMUI.Animation.PopUpMenu.Right">
+        <item name="android:windowEnterAnimation">@anim/grow_from_bottomright_to_topleft</item>
+        <item name="android:windowExitAnimation">@anim/shrink_from_topleft_to_bottomright</item>
+    </style>
+
+    <style name="QMUI.Animation.PopDownMenu" />
+
+    <style name="QMUI.Animation.PopDownMenu.Center">
+        <item name="android:windowEnterAnimation">@anim/grow_from_top</item>
+        <item name="android:windowExitAnimation">@anim/shrink_from_bottom</item>
+    </style>
+
+    <style name="QMUI.Animation.PopDownMenu.Left">
+        <item name="android:windowEnterAnimation">@anim/grow_from_topleft_to_bottomright</item>
+        <item name="android:windowExitAnimation">@anim/shrink_from_bottomright_to_topleft</item>
+    </style>
+
+    <style name="QMUI.Animation.PopDownMenu.Right">
+        <item name="android:windowEnterAnimation">@anim/grow_from_topright_to_bottomleft</item>
+        <item name="android:windowExitAnimation">@anim/shrink_from_bottomleft_to_topright</item>
+    </style>
 </resources>

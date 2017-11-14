@@ -9,6 +9,8 @@ import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
@@ -26,6 +28,7 @@ import com.xingyun.slimvan.util.GetJsonDataUtil;
 import com.xingyun.slimvan.util.TimeUtils;
 import com.xingyun.slimvan.util.ToastUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -269,6 +272,54 @@ public class DialogHelper {
                 .show();
 
     }
+
+    /**
+     * 警告内容对话框
+     *
+     * @param mContext   上下文对象
+     * @param title      标题
+     * @param content    内容
+     * @param titleColor 标题颜色
+     * @param listener   确认 点击监听
+     */
+    public static void showAlertDialog(Context mContext, String title, String content, int titleColor, final DialogConfirmClickListener listener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        AlertDialog dialog = builder.setTitle(title)
+                .setMessage(content)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        listener.onDialogConfirmClick(dialog, which);
+                    }
+                })
+                .create();
+        dialog.show();
+        //反射修改原生Dialog中控件属性，可修改包括颜色、字体大小等。
+        try {
+            /*private ImageView mIconView;
+            private TextView mTitleView;
+            private TextView mMessageView;
+            private View mCustomTitleView;*/
+            Field mAlert = AlertDialog.class.getDeclaredField("mAlert");
+            mAlert.setAccessible(true);
+            Object mAlertController = mAlert.get(dialog);
+            Field mTitle = mAlertController.getClass().getDeclaredField("mTitleView");
+            mTitle.setAccessible(true);
+            TextView mTitleView = (TextView) mTitle.get(mAlertController);
+            mTitleView.setTextColor(titleColor);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 列表样式对话框

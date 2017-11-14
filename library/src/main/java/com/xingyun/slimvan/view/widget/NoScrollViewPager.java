@@ -1,4 +1,4 @@
-package com.xingyun.slimvan.view;
+package com.xingyun.slimvan.view.widget;
 
 import android.content.Context;
 import android.support.v4.view.ViewPager;
