@@ -4,13 +4,17 @@ import android.app.Application;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,6 +31,7 @@ import com.slimvan.xingyun.fragment.PersonalFragment;
 import com.xingyun.slimvan.base.BaseFragmentActivity;
 import com.xingyun.slimvan.util.AppUtils;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +66,7 @@ public class MainActivity extends BaseFragmentActivity {
             R.mipmap.ic_home_1,
             R.mipmap.ic_message_1,
             R.mipmap.ic_mine_1};
+    private boolean ripple = true; //Tab点击水波纹效果  默认开
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +96,7 @@ public class MainActivity extends BaseFragmentActivity {
         for (int i = 0; i < 3; i++) {
             MsgView msgView = commonTabLayout.getMsgView(i);
             if (msgView != null) {
-                switch (i){
+                switch (i) {
                     case 0:
                         msgView.setBackgroundColor(Color.parseColor("#ec3a2d"));
                         break;
@@ -103,6 +109,25 @@ public class MainActivity extends BaseFragmentActivity {
                 }
             }
         }
+
+        if (ripple) {
+            try {
+                Field mTabsContainer = commonTabLayout.getClass().getDeclaredField("mTabsContainer");
+                mTabsContainer.setAccessible(true);
+                LinearLayout mCommonTabLayout = (LinearLayout) mTabsContainer.get(commonTabLayout);
+                for (int i = 0; i < mTitles.length; i++) {
+                    View childAt = mCommonTabLayout.getChildAt(i);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        childAt.setBackground(ContextCompat.getDrawable(mContext, R.drawable.ripple_tab));
+                    }
+                }
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     /**
@@ -115,12 +140,12 @@ public class MainActivity extends BaseFragmentActivity {
         fragments.add(ForumFragment.getInstance());
         fragments.add(PersonalFragment.getInstance());
 
-        for (int i = 0; i < mTitles.length; i++)
-        {
+        for (int i = 0; i < mTitles.length; i++) {
             mTabEntities.add(new TabEntity(getString(mTitles[i]), mIconselectIds[i], mIconUnSelectIds[i]));
         }
         //此处会添加fragments中的Fragment到container中，所以取消serFragments中添加的部分。
         commonTabLayout.setTabData(mTabEntities, this, R.id.fl_content, fragments);
+
     }
 
     /**

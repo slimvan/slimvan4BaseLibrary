@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.Gson;
@@ -18,12 +19,15 @@ import com.slimvan.xingyun.activity.WebViewActivity;
 import com.slimvan.xingyun.adapter.ForumAdapter;
 import com.slimvan.xingyun.bean.ForumBean;
 import com.slimvan.xingyun.http.api.GankApi;
+import com.slimvan.xingyun.utils.GlideImageLoader;
 import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.http.HttpConfig;
 import com.xingyun.slimvan.http.MSubscriber;
 import com.xingyun.slimvan.http.RetrofitBuilder;
-import com.xingyun.slimvan.http.JavaBeanCallBack;
+import com.xingyun.slimvan.util.ConvertUtils;
 import com.xingyun.slimvan.util.LogUtils;
+import com.xingyun.slimvan.util.ToastUtils;
+import com.yyydjk.library.BannerLayout;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 import com.zhy.http.okhttp.request.RequestCall;
@@ -49,6 +53,10 @@ public class ForumFragment extends BaseFragment {
     @BindView(R.id.refreshLayout)
     SwipeRefreshLayout refreshLayout;
     Unbinder unbinder;
+//    @BindView(R.id.banner)
+    BannerLayout banner;
+
+    private List<String> imageList;
 
     private ForumAdapter adapter;
     private List<ForumBean.ResultsBean> dataList = new ArrayList<>();
@@ -67,6 +75,7 @@ public class ForumFragment extends BaseFragment {
         unbinder = ButterKnife.bind(this, view);
 
         initRefreshLayout();
+//        initBanner();
         initRecyclerView();
 
 //        getData();
@@ -97,6 +106,14 @@ public class ForumFragment extends BaseFragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
 //        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
+
+        View headerView = LayoutInflater.from(mContext).inflate(R.layout.layout_banner,null);
+        ViewGroup.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ConvertUtils.dp2px(150));
+        headerView.setLayoutParams(params);
+        banner= (BannerLayout) headerView.findViewById(R.id.banner);
+        adapter.addHeaderView(headerView);
+        initBanner();
+
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
@@ -111,6 +128,26 @@ public class ForumFragment extends BaseFragment {
                         startActivity(intent);
                     }
                 }
+            }
+        });
+    }
+
+    private void initBanner() {
+        imageList = new ArrayList<>();
+        imageList.add("http://pic.90sjimg.com/back_pic/qk/back_origin_pic/00/03/75/9b84e7c1fca9670e481323096a63e0cc.jpg");
+        imageList.add("http://pic.90sjimg.com/back_pic/qk/back_origin_pic/00/01/44/40b366afb1c10d58fa05d9c419802f24.jpg");
+        imageList.add("http://pic.90sjimg.com/back_pic/00/00/69/40/f5b8e8d8206523e353a7335ae8c66e86.jpg");
+        imageList.add("http://img4.web07.cn/UPics/Picture/2016/1116/208271160911291.jpg");
+
+        //设置加载器
+        banner.setImageLoader(new GlideImageLoader());
+        //网络地址
+        banner.setViewUrls(imageList);
+        //添加点击监听
+        banner.setOnBannerItemClickListener(new BannerLayout.OnBannerItemClickListener() {
+            @Override
+            public void onItemClick(int i) {
+                ToastUtils.showShort(i + "");
             }
         });
     }
@@ -156,21 +193,21 @@ public class ForumFragment extends BaseFragment {
                 .get()
                 .url(HttpConfig.GANK_BASE_URL + "all/10/1")
                 .build();
-                request.execute(new StringCallback() {
-                    @Override
-                    public void onError(Call call, Exception e, int id) {
+        request.execute(new StringCallback() {
+            @Override
+            public void onError(Call call, Exception e, int id) {
 
-                    }
+            }
 
-                    @Override
-                    public void onResponse(String response, int id) {
-                        ForumBean forumBean = new Gson().fromJson(response, ForumBean.class);
-                        if (forumBean != null) {
-                            adapter.setNewData(forumBean.getResults());
-                            adapter.disableLoadMoreIfNotFullPage(recyclerView);
-                        }
-                    }
-                });
+            @Override
+            public void onResponse(String response, int id) {
+                ForumBean forumBean = new Gson().fromJson(response, ForumBean.class);
+                if (forumBean != null) {
+                    adapter.setNewData(forumBean.getResults());
+                    adapter.disableLoadMoreIfNotFullPage(recyclerView);
+                }
+            }
+        });
     }
 
 
@@ -183,6 +220,7 @@ public class ForumFragment extends BaseFragment {
                     public void onSuccess(String s) {
                         ForumBean mData = new Gson().fromJson(s, ForumBean.class);
                         if (mData != null) {
+                            banner.setViewUrls(imageList);
                             adapter.setNewData(mData.getResults());
                             adapter.disableLoadMoreIfNotFullPage(recyclerView);
                             refreshLayout.setRefreshing(false);
