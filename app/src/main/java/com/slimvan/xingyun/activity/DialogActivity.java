@@ -6,35 +6,48 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bigkoo.alertview.OnItemClickListener;
+import com.bilibili.boxing.utils.BoxingFileHelper;
 import com.bumptech.glide.Glide;
 import com.slimvan.xingyun.R;
+import com.slimvan.xingyun.utils.UCropUtils;
 import com.xingyun.slimvan.base.BaseHeaderActivity;
 import com.xingyun.slimvan.listener.AreaPickerConfirmListener;
 import com.xingyun.slimvan.listener.DialogConfirmClickListener;
 import com.xingyun.slimvan.listener.DialogMultiConfirmClickListener;
 import com.xingyun.slimvan.listener.TimePickerConfirmListener;
+import com.xingyun.slimvan.util.AppUtils;
+import com.xingyun.slimvan.util.FileUtils;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.xingyun.slimvan.util.Utils;
 import com.xingyun.slimvan.view.DialogHelper;
+import com.yalantis.ucrop.UCrop;
 import com.zhihu.matisse.Matisse;
 import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 
+import java.io.File;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static android.R.attr.maxHeight;
+import static android.R.attr.maxWidth;
 
 public class DialogActivity extends BaseHeaderActivity {
 
@@ -69,6 +82,11 @@ public class DialogActivity extends BaseHeaderActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dialog);
         ButterKnife.bind(this);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            toolbar.setTransitionName("personal_dialog");
+        }
+        setTitle("Dialog体验");
     }
 
     @Override
@@ -89,7 +107,7 @@ public class DialogActivity extends BaseHeaderActivity {
     @OnClick({R.id.tv_ios_dialog, R.id.tv_ios_list_dialog
             , R.id.tv_ios_alert_dialog, R.id.tv_alert_dialog, R.id.tv_list_dialog, R.id.tv_single_choice_dialog
             , R.id.tv_multi_choice_dialog, R.id.tv_time_picker, R.id.tv_area_picker, R.id.iv_photo_picker
-            , R.id.tv_flex_layout,R.id.tv_style_dialog})
+            , R.id.tv_flex_layout, R.id.tv_style_dialog})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_ios_dialog:
@@ -226,7 +244,14 @@ public class DialogActivity extends BaseHeaderActivity {
             mSelected = Matisse.obtainResult(data);
             Log.d("Matisse", "mSelected: " + mSelected);
             if (mSelected != null) {
-                Glide.with(mContext).load(mSelected.get(0)).into(ivPhotoPicker);
+                Uri uri = mSelected.get(0);
+                UCropUtils.startCrop(DialogActivity.this, uri, 1, 1, 200, 200);
+            }
+        }
+        if (requestCode == UCrop.REQUEST_CROP && resultCode == RESULT_OK) {
+            if (data != null) {
+                Uri output = UCrop.getOutput(data);
+                Glide.with(mContext).load(output).into(ivPhotoPicker);
             }
         }
     }

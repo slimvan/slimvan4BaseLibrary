@@ -1,6 +1,7 @@
 package com.xingyun.slimvan.view.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -11,6 +12,10 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import com.xingyun.slimvan.R;
+
+import static android.R.attr.radius;
 
 /**
  * 自定义的圆角矩形ImageView，可以直接当组件在布局中使用。
@@ -33,7 +38,18 @@ public class RoundRectImageView extends ImageView {
     public RoundRectImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         paint = new Paint();
+        setup(attrs);
     }
+
+    private float radius = 10f;
+
+
+    protected void setup(AttributeSet attrs) {
+        TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.RoundImageView);
+        radius = typedArray.getFloat(R.styleable.RoundImageView_radius, radius);
+        typedArray.recycle();
+    }
+
 
     /**
      * 绘制圆角矩形图片
@@ -46,7 +62,7 @@ public class RoundRectImageView extends ImageView {
         Path clipPath = new Path();
         int w = this.getWidth();
         int h = this.getHeight();
-        clipPath.addRoundRect(new RectF(0, 0, w, h), 10.0f, 10.0f, Path.Direction.CW);
+        clipPath.addRoundRect(new RectF(0, 0, w, h), radius, radius, Path.Direction.CW);
         canvas.clipPath(clipPath);
         super.onDraw(canvas);
     }

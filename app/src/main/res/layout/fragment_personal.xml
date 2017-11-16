@@ -6,30 +6,61 @@
     android:orientation="vertical"
     tools:context="com.slimvan.xingyun.fragment.PersonalFragment">
 
-    <TextView
-        android:id="@+id/tv_dialog"
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_google_bg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/google" />
+
+
+        <com.xingyun.slimvan.view.widget.RoundRectImageView
+            android:id="@+id/tv_webView"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            android:src="@color/colorAccent"
+            app:radius="30" />
+
+    </FrameLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:padding="20dp"
-        android:text="Dialog"
-        android:textColor="#ffffff" />
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
-    <TextView
-        android:id="@+id/tv_tips"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:padding="20dp"
-        android:text="TipsView"
-        android:textColor="#ffffff" />
+        <TextView
+            android:id="@+id/tv_dialog"
+            android:transitionName="personal_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary"
+            android:padding="20dp"
+            android:text="Dialog体验"
+            android:textColor="#ffffff" />
 
-    <ImageView
-        android:layout_gravity="center_horizontal"
-        android:id="@+id/tv_webView"
-        android:layout_width="80dp"
-        android:scaleType="centerCrop"
-        android:layout_height="80dp"
-        android:background="@color/colorAccent" />
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:background="@color/colorPrimary"
+            android:padding="20dp"
+            android:text="TipsView"
+            android:textColor="#ffffff" />
+    </LinearLayout>
+
 
 </LinearLayout>

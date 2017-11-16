@@ -153,7 +153,7 @@ public class BaseFragment extends Fragment {
      * @param permissions
      * @param requestCode
      */
-    private void requestEachPermissions(String desc, String[] permissions, int requestCode) {
+    protected void requestEachPermissions(String desc, String[] permissions, int requestCode) {
         if (shouldShowRequestPermissionRationale(permissions)) {// 需要再次声明
             showRationaleDialog(desc, permissions, requestCode);
         } else {
@@ -168,7 +168,7 @@ public class BaseFragment extends Fragment {
      * @param permissions
      * @param requestCode
      */
-    private void showRationaleDialog(String desc, final String[] permissions, final int requestCode) {
+    protected void showRationaleDialog(String desc, final String[] permissions, final int requestCode) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setTitle(getString(R.string.tips))
                 .setMessage(desc)
@@ -195,7 +195,7 @@ public class BaseFragment extends Fragment {
      * @param permissions
      * @return
      */
-    private boolean shouldShowRequestPermissionRationale(String[] permissions) {
+    protected boolean shouldShowRequestPermissionRationale(String[] permissions) {
         for (String permission : permissions) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission)) {
                 return true;
@@ -211,7 +211,7 @@ public class BaseFragment extends Fragment {
      * @param permissions
      * @return true 需要申请权限,false 已申请权限
      */
-    private boolean checkEachSelfPermission(String[] permissions) {
+    protected boolean checkEachSelfPermission(String[] permissions) {
         for (String permission : permissions) {
             if (ContextCompat.checkSelfPermission(getActivity(), permission) != PackageManager.PERMISSION_GRANTED) {
                 return true;
@@ -249,7 +249,7 @@ public class BaseFragment extends Fragment {
      * @param grantResults
      * @return
      */
-    private boolean checkEachPermissionsGranted(int[] grantResults) {
+    protected boolean checkEachPermissionsGranted(int[] grantResults) {
         for (int result : grantResults) {
             if (result != PackageManager.PERMISSION_GRANTED) {
                 return false;

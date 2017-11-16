@@ -6,6 +6,7 @@
         <attr name="qmui_loading_view_size" format="dimension"/>
         <attr name="android:color"/>
     </declare-styleable>
+
     <attr name="QMUILoadingStyle" format="reference"/>
 
     <!-- tips -->
@@ -15,4 +16,13 @@
     <attr name="qmui_tip_dialog_padding_vertical" format="dimension"/>
     <attr name="qmui_tip_dialog_padding_horizontal" format="dimension"/>
     <attr name="qmui_tip_dialog_margin_horizontal" format="dimension"/>
+
+
+    <!--圆角ImageView-->
+
+    <declare-styleable name="RoundImageView">
+        <attr name="radius" format="float"></attr>
+    </declare-styleable>
+
+
 </resources>
