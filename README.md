@@ -14,7 +14,7 @@
 
 + [BaseActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/activity/BaseActivity.java)(Activity基类，默认只能竖屏显示，包含权限申请、控件批量隐藏显示、Android/IOS两种风格的加载框显示)
 + [BaseFragmentActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/activity/BaseFragmentActivity.java)(提供setFragments存储Fragment，通过hideFragment/ShowFragment控制界面的隐藏/显示，事件监听需要自行实现)
-+ [BaseHeaderActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/activity/BaseHeaderActivity.java)(带标题栏的Activity，顶部标题栏由RelativeLayout实现，左右两边各有一个按钮，灵活处理点击事件，这里不用ToolBar的原因是很多情况下ToolBar并不能方便的满足各种奇葩需求… 你还可以根据业务逻辑灵活控制显示或隐藏界面内容，配置标题栏；显示空布局、无网络布局、服务器错误布局)
++ [BaseHeaderActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/activity/BaseHeaderActivity.java)(带标题栏的Activity，可以根据业务逻辑灵活控制显示或隐藏界面内容，配置标题栏；显示空布局、无网络布局、服务器错误布局)
 + [BaseRefreshActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/base/BaseRefreshActivity.java)(实现下拉刷新的Activity，刷新控件使用Android原生SwipeRefreshLayout，子类Activity布局只需填充需要刷新的内容即可；子类中需要重写onRefresh方法，自行根据业务逻辑实现即可)
 + [BaseRefreshLoadMoreActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/base/BaseRefreshLoadMoreActivity.java)(使用方法和BaseRefreshActivity类似，子类中 需要重写onRefresh和onLoadMore方法，自行根据业务逻辑实现即可)
 + [BaseFragment](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/library/src/main/java/com/xingyun/slimvan/fragment/BaseFragment.java)(和BaseActivity对应，不多说）
@@ -189,6 +189,52 @@ DialogHelper.showAreaPicker(DialogActivity.this, new AreaPickerConfirmListener()
 });
 ```
 
+##### 加载提示框
+
+``` 
+tipDialog = new QMUITipDialog.Builder(getContext())
+                                .setIconType(QMUITipDialog.Builder.ICON_TYPE_LOADING)
+                                .setTipWord("正在加载")
+                                .create();
+                                tipDialog.show();//需要手动show 否则不显示。
+```
+
+##### PopupWindow
+
+```
+private void initNormalPopupIfNeed() {
+        if (mNormalPopup == null) {
+            mNormalPopup = new QMUIPopup(getContext(), QMUIPopup.DIRECTION_NONE);
+            TextView textView = new TextView(getContext());
+            textView.setLayoutParams(mNormalPopup.generateLayoutParam(
+                    ConvertUtils.dp2px(250),
+                    WRAP_CONTENT
+            ));
+            textView.setLineSpacing(ConvertUtils.dp2px(4), 1.0f);
+            int padding = ConvertUtils.dp2px(20);
+            textView.setPadding(padding, padding, padding, padding);
+            textView.setText("Popup 可以设置其位置以及显示和隐藏的动画");
+            textView.setTextColor(Color.parseColor("#858C96"));
+            mNormalPopup.setContentView(textView);
+            mNormalPopup.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                	//TODO
+                }
+            });
+        }
+    }
+```
+
+### 图片裁剪
+
++ Ucrop
+
+  ```
+  UCropUtils.startCrop(DialogActivity.this, uri, 1, 1, 200, 200);
+  ```
+
+  ​
 
 
 ## 其他
@@ -202,4 +248,6 @@ CheckDoubleClickListener
 ```
 
 ————————————————————————The End————————————————————
+
+
 
