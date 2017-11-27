@@ -1,6 +1,7 @@
 package com.xingyun.slimvan.view.widget;
 
 import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,12 +13,16 @@ import android.widget.ProgressBar;
 import com.lcodecore.tkrefreshlayout.IBottomView;
 import com.xingyun.slimvan.R;
 
+import skin.support.widget.SkinCompatBackgroundHelper;
+import skin.support.widget.SkinCompatSupportable;
+import skin.support.widget.SkinCompatTextHelper;
+
 /**
  * 加载更多底部布局
  * Created by xingyun on 2017/6/30.
  */
 
-public class LoadMoreView extends FrameLayout implements IBottomView {
+public class LoadMoreView extends FrameLayout implements IBottomView , SkinCompatSupportable {
 
     private final ProgressBar progress;
 
@@ -37,6 +42,8 @@ public class LoadMoreView extends FrameLayout implements IBottomView {
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER;
         this.setLayoutParams(params);
+        mBackgroundTintHelper = new SkinCompatBackgroundHelper(this);
+        mBackgroundTintHelper.loadFromAttributes(attrs, defStyleAttr);
     }
 
     @Override
@@ -67,5 +74,22 @@ public class LoadMoreView extends FrameLayout implements IBottomView {
     @Override
     public void reset() {
 
+    }
+
+    @Override
+    public void setBackgroundResource(@DrawableRes int resid) {
+        super.setBackgroundResource(resid);
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.onSetBackgroundResource(resid);
+        }
+    }
+
+    private SkinCompatBackgroundHelper mBackgroundTintHelper;
+
+    @Override
+    public void applySkin() {
+        if (mBackgroundTintHelper != null) {
+            mBackgroundTintHelper.applySkin();
+        }
     }
 }

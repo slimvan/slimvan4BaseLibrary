@@ -60,5 +60,9 @@ dependencies {
     compile 'com.bigkoo:alertview:1.0.3'
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.jaeger.statusbarutil:library:1.4.0'
+    compile 'skin.support:skin-support:2.1.9'          // skin-support basic widget
+    compile 'skin.support:skin-support-design:1.2.5'   // skin-support-design material design support [selectable]
+    compile 'skin.support:skin-support-cardview:1.2.0' // skin-support-cardview CardView support [selectable]
+    compile 'skin.support:skin-support-constraint-layout:1.0.2' // skin-support-constraint-layout ConstraintLayout support [selectable]
     testCompile 'junit:junit:4.12'
 }

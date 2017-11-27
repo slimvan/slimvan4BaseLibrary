@@ -2,7 +2,9 @@ package com.slimvan.xingyun.fragment;
 
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -12,47 +14,42 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.model.config.BoxingConfig;
-import com.bilibili.boxing.model.config.BoxingCropOption;
 import com.bilibili.boxing.model.entity.BaseMedia;
-import com.bilibili.boxing.utils.BoxingFileHelper;
 import com.bilibili.boxing_impl.ui.BoxingActivity;
 import com.bumptech.glide.Glide;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.activity.DialogActivity;
-import com.slimvan.xingyun.activity.PhotoPreviewActivity;
 import com.slimvan.xingyun.activity.TipsDialogActivity;
 import com.slimvan.xingyun.config.Constants;
 import com.slimvan.xingyun.utils.UCropUtils;
 import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.listener.PermissionsResultListener;
 import com.xingyun.slimvan.util.AppUtils;
-import com.xingyun.slimvan.util.CacheUtils;
-import com.xingyun.slimvan.util.ConvertUtils;
-import com.xingyun.slimvan.util.FileUtils;
 import com.xingyun.slimvan.util.ImageUtils;
-import com.xingyun.slimvan.util.SDCardUtils;
+import com.xingyun.slimvan.view.DialogHelper;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import skin.support.SkinCompatManager;
+import skin.support.content.res.SkinCompatResources;
+import skin.support.widget.SkinCompatThemeUtils;
 
-import static android.R.attr.data;
+import static skin.support.widget.SkinCompatHelper.INVALID_ID;
+import static skin.support.widget.SkinCompatHelper.checkResourceId;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +66,8 @@ public class PersonalFragment extends BaseFragment {
     TextView tvTips;
     @BindView(R.id.iv_google_bg)
     ImageView ivGoogleBg;
+    @BindView(R.id.tv_skins)
+    TextView tvSkins;
 
     public static PersonalFragment getInstance() {
         PersonalFragment personalFragment = new PersonalFragment();
@@ -100,7 +99,7 @@ public class PersonalFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tv_dialog, R.id.tv_webView, R.id.tv_tips})
+    @OnClick({R.id.tv_dialog, R.id.tv_webView, R.id.tv_tips, R.id.tv_skins})
     public void onViewClicked(View view) {
         Intent intent;
         switch (view.getId()) {
@@ -135,6 +134,39 @@ public class PersonalFragment extends BaseFragment {
                 intent = new Intent(mContext, TipsDialogActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.tv_skins:
+                String[] items = new String[]{"红色", "默认"};
+                DialogHelper.showListDialog(mContext, "选择皮肤", items, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                SkinCompatManager.getInstance().loadSkin("red.skin", SkinCompatManager.SKIN_LOADER_STRATEGY_ASSETS);
+                                updateStatusBarColor(getActivity());
+                                dialog.dismiss();
+                                break;
+                            case 1:
+                                // 恢复应用默认皮肤
+                                SkinCompatManager.getInstance().restoreDefaultTheme();
+                                dialog.dismiss();
+                                break;
+                        }
+                    }
+                });
+                break;
+        }
+    }
+
+    private void updateStatusBarColor(Activity activity) {
+        if (SkinCompatManager.getInstance().isSkinStatusBarColorEnable()
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            int statusBarColorResId = SkinCompatThemeUtils.getStatusBarColorResId(activity);
+            int colorPrimaryDarkResId = SkinCompatThemeUtils.getColorPrimaryDarkResId(activity);
+            if (checkResourceId(statusBarColorResId) != INVALID_ID) {
+                activity.getWindow().setStatusBarColor(SkinCompatResources.getInstance().getColor(statusBarColorResId));
+            } else if (checkResourceId(colorPrimaryDarkResId) != INVALID_ID) {
+                activity.getWindow().setStatusBarColor(SkinCompatResources.getInstance().getColor(colorPrimaryDarkResId));
+            }
         }
     }
 
@@ -158,7 +190,7 @@ public class PersonalFragment extends BaseFragment {
                         GaussianBlur(); //背景图高斯模糊
                         String path = medias.get(0).getPath();
                         File imgFile = new File(path);
-                        UCropUtils.startCrop(getActivity(),PersonalFragment.this,Uri.fromFile(imgFile),1,1,200,200);
+                        UCropUtils.startCrop(getActivity(), PersonalFragment.this, Uri.fromFile(imgFile), 1, 1, 200, 200);
                     }
                 }
                 break;

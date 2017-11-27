@@ -1,12 +1,8 @@
 package com.slimvan.xingyun.fragment;
 
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -106,7 +102,6 @@ public class HomePageFragment extends BaseFragment {
 //        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
         recyclerView.setAdapter(adapter);
         adapter.disableLoadMoreIfNotFullPage(recyclerView);
-
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
