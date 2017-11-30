@@ -309,6 +309,7 @@ public class DialogHelper {
             Field mAlert = AlertDialog.class.getDeclaredField("mAlert");
             mAlert.setAccessible(true);
             Object mAlertController = mAlert.get(dialog);
+
             Field mTitle = mAlertController.getClass().getDeclaredField("mTitleView");
             mTitle.setAccessible(true);
             TextView mTitleView = (TextView) mTitle.get(mAlertController);

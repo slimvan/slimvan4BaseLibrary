@@ -1,23 +1,20 @@
 package com.slimvan.xingyun.activity;
 
-import android.app.Application;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.afollestad.appthemeengine.ATE;
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.flyco.tablayout.CommonTabLayout;
@@ -78,7 +75,6 @@ public class MainActivity extends BaseFragmentActivity {
 //        showFragment(fragments.get(0), false);
         assignView();
         testTips();
-
     }
 
     private void testTips() {

@@ -57,6 +57,7 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':library')
+    compile project(':skin_compat_library')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.20'
@@ -74,11 +75,12 @@ dependencies {
     compile 'com.github.chrisbanes:PhotoView:2.1.3'
     compile 'me.relex:circleindicator:1.2.2@aar'
     compile 'com.flyco.tablayout:FlycoTabLayout_Lib:2.1.2@aar'
-
-//    compile 'skin.support:skin-support:2.1.9'          // skin-support basic widget
-//    compile 'skin.support:skin-support-design:1.2.5'   // skin-support-design material design support [selectable]
-//    compile 'skin.support:skin-support-cardview:1.2.0' // skin-support-cardview CardView support [selectable]
-//    compile 'skin.support:skin-support-constraint-layout:1.0.2' // skin-support-constraint-layout ConstraintLayout support [selectable]
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.3@aar') {
+        transitive = true
+    }
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.3@aar') {
+        transitive = true
+    }
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }

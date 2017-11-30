@@ -9,7 +9,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:name=".application.App"
         android:allowBackup="true"
@@ -32,8 +33,7 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Boxing.AppTheme.NoActionBar"/>
-
+            android:theme="@style/Boxing.AppTheme.NoActionBar" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,7 +52,8 @@
         <activity android:name=".activity.FlexLayoutActivity" />
         <activity android:name=".activity.PhotoPreviewActivity" />
         <activity android:name=".activity.ImageActivity" />
-        <activity android:name=".activity.TipsDialogActivity"></activity>
+        <activity android:name=".activity.TipsDialogActivity" />
+        <activity android:name=".activity.SkinChangeActivity"></activity>
     </application>
 
 </manifest>

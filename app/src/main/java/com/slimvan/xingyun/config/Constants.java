@@ -7,4 +7,5 @@ package com.slimvan.xingyun.config;
 public class Constants {
     public static final int BOXING_IMAGE_REQUEST_CODE = 201;
     public static final int PERMISSION_REQUEST_CODE = 202;
+    public static final String SHARE_NAME = "slimvan";
 }

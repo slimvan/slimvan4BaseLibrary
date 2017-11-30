@@ -2,23 +2,12 @@ package com.slimvan.xingyun.application;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.widget.ImageView;
 
 import com.bilibili.boxing.BoxingCrop;
 import com.bilibili.boxing.BoxingMediaLoader;
-import com.bilibili.boxing.loader.IBoxingCallback;
-import com.bilibili.boxing.loader.IBoxingCrop;
-import com.bilibili.boxing.loader.IBoxingMediaLoader;
-import com.bilibili.boxing.model.config.BoxingConfig;
-import com.bilibili.boxing.model.config.BoxingCropOption;
 import com.slimvan.xingyun.utils.BoxingGlideLoader;
 import com.slimvan.xingyun.utils.BoxingUcrop;
 import com.xingyun.slimvan.application.BaseLibrary;
-import com.xingyun.slimvan.http.HttpConfig;
 import com.xingyun.slimvan.util.Utils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.log.LoggerInterceptor;
@@ -26,16 +15,12 @@ import com.zhy.http.okhttp.log.LoggerInterceptor;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import skin.support.SkinCompatManager;
-import skin.support.app.SkinCardViewInflater;
-import skin.support.constraint.app.SkinConstraintViewInflater;
-import skin.support.design.app.SkinMaterialViewInflater;
 
 /**
  * Created by xingyun on 2017/7/14.
  */
 
-public class App extends Application {
+public class App extends Application{
     private static Context applicationContext;
 
     public static Context getContext() {
@@ -48,6 +33,7 @@ public class App extends Application {
         applicationContext = getApplicationContext();
 
         init();
+
     }
 
     private void init() {
@@ -59,21 +45,6 @@ public class App extends Application {
         initOkHttp();
         //初始化Boxing图片选择器
         initBoxing();
-        //初始化换肤框架
-        initSkinCompatManager();
-    }
-
-    /**
-     * 初始化换肤框架
-     */
-    private void initSkinCompatManager() {
-        SkinCompatManager.withoutActivity(this)                         // 基础控件换肤初始化
-                .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
-                .addInflater(new SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
-                .addInflater(new SkinCardViewInflater())                // CardView v7 控件换肤初始化[可选]
-                .setSkinStatusBarColorEnable(true)                     // 关闭状态栏换肤，默认打开[可选]
-                .setSkinWindowBackgroundEnable(true)                   // 关闭windowBackground换肤，默认打开[可选]
-                .loadSkin();
     }
 
     /**
@@ -102,4 +73,5 @@ public class App extends Application {
 
         OkHttpUtils.initClient(okHttpClient);
     }
+
 }

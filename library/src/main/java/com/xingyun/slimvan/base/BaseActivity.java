@@ -10,7 +10,9 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -18,6 +20,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.afollestad.appthemeengine.ATE;
+import com.afollestad.appthemeengine.ATEActivity;
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.jaeger.library.StatusBarUtil;
 import com.xingyun.slimvan.R;
@@ -29,10 +33,12 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import static com.xingyun.slimvan.util.LogUtils.A;
+
 /**
  * Activity基类
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends ATEActivity {
     protected final String TAG = this.getClass().getSimpleName();
 
     protected Context mContext;
@@ -54,6 +60,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         LogUtils.d(TAG, "onCreate...");
         mContext = this;
+        ATE.preApply(this, getATEKey());
         super.setContentView(R.layout.activity_base);
 
         initIntentParams(getIntent());
@@ -313,12 +320,17 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         LogUtils.d(TAG, "onResume...");
+
+        if (ATE.didValuesChange(this, System.currentTimeMillis(), getATEKey()))
+            recreate();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         LogUtils.d(TAG, "onStart..");
+
+        ATE.apply(this, getATEKey());
     }
 
     @Override
@@ -347,5 +359,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-
+    @Nullable
+    @Override
+    protected final String getATEKey() {
+        return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
+                "dark_theme" : "light_theme";
+    }
 }

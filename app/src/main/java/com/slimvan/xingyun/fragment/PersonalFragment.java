@@ -2,9 +2,7 @@ package com.slimvan.xingyun.fragment;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.ActivityOptions;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.appthemeengine.Config;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.model.config.BoxingConfig;
 import com.bilibili.boxing.model.entity.BaseMedia;
@@ -27,6 +26,7 @@ import com.bilibili.boxing_impl.ui.BoxingActivity;
 import com.bumptech.glide.Glide;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.activity.DialogActivity;
+import com.slimvan.xingyun.activity.SkinChangeActivity;
 import com.slimvan.xingyun.activity.TipsDialogActivity;
 import com.slimvan.xingyun.config.Constants;
 import com.slimvan.xingyun.utils.UCropUtils;
@@ -34,7 +34,6 @@ import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.listener.PermissionsResultListener;
 import com.xingyun.slimvan.util.AppUtils;
 import com.xingyun.slimvan.util.ImageUtils;
-import com.xingyun.slimvan.view.DialogHelper;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
@@ -44,12 +43,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import skin.support.SkinCompatManager;
-import skin.support.content.res.SkinCompatResources;
-import skin.support.widget.SkinCompatThemeUtils;
-
-import static skin.support.widget.SkinCompatHelper.INVALID_ID;
-import static skin.support.widget.SkinCompatHelper.checkResourceId;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,6 +62,9 @@ public class PersonalFragment extends BaseFragment {
     @BindView(R.id.tv_skins)
     TextView tvSkins;
 
+    private int main_color;
+    private int skin_type;
+
     public static PersonalFragment getInstance() {
         PersonalFragment personalFragment = new PersonalFragment();
         return personalFragment;
@@ -80,7 +76,14 @@ public class PersonalFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
         unbinder = ButterKnife.bind(this, view);
 
+        initData();
         return view;
+    }
+
+    private void initData() {
+        if (Config.getPrimaryColor() != 0) {
+            main_color = Config.getPrimaryColor();
+        }
     }
 
     /**
@@ -135,38 +138,9 @@ public class PersonalFragment extends BaseFragment {
                 startActivity(intent);
                 break;
             case R.id.tv_skins:
-                String[] items = new String[]{"红色", "默认"};
-                DialogHelper.showListDialog(mContext, "选择皮肤", items, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                SkinCompatManager.getInstance().loadSkin("red.skin", SkinCompatManager.SKIN_LOADER_STRATEGY_ASSETS);
-                                updateStatusBarColor(getActivity());
-                                dialog.dismiss();
-                                break;
-                            case 1:
-                                // 恢复应用默认皮肤
-                                SkinCompatManager.getInstance().restoreDefaultTheme();
-                                dialog.dismiss();
-                                break;
-                        }
-                    }
-                });
+                intent = new Intent(mContext, SkinChangeActivity.class);
+                startActivity(intent);
                 break;
-        }
-    }
-
-    private void updateStatusBarColor(Activity activity) {
-        if (SkinCompatManager.getInstance().isSkinStatusBarColorEnable()
-                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            int statusBarColorResId = SkinCompatThemeUtils.getStatusBarColorResId(activity);
-            int colorPrimaryDarkResId = SkinCompatThemeUtils.getColorPrimaryDarkResId(activity);
-            if (checkResourceId(statusBarColorResId) != INVALID_ID) {
-                activity.getWindow().setStatusBarColor(SkinCompatResources.getInstance().getColor(statusBarColorResId));
-            } else if (checkResourceId(colorPrimaryDarkResId) != INVALID_ID) {
-                activity.getWindow().setStatusBarColor(SkinCompatResources.getInstance().getColor(colorPrimaryDarkResId));
-            }
         }
     }
 
