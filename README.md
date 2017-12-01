@@ -234,7 +234,6 @@ private void initNormalPopupIfNeed() {
   UCropUtils.startCrop(DialogActivity.this, uri, 1, 1, 200, 200);
   ```
 
-  ​
 
 
 ## 其他
@@ -246,6 +245,72 @@ CheckDoubleClickListener
 
 在OnClick方法参数中传入CheckDoubleClickListener 其他逻辑和原生方法一致。
 ```
+
+### 换肤
+
+##### 换肤事件中：
+
+``` 
+final Config config = ATE.config(mContext, getATEKey());
+                            config.primaryColor(main_color); //配置主体颜色
+                            config.accentColor(main_color);
+                            config.commit();
+                            SkinHelper.setSkinType(position);
+                            
+                            resetMDDialog(); 
+                            //三方Dialog库 方便配置Dialog的主题颜色	   
+                            https://github.com/afollestad/material-dialogs
+                            
+                            finish();
+                            recreate(); // recreation needed to reach the checkboxes in the 										    preferences layout
+```
+
+##### xml布局：
+
+```
+<LinearLayout
+        android:layout_width="match_parent"
+        android:padding="15dp"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.SwitchCompat
+            android:layout_width="wrap_content"
+            android:tag="tint_accent_color,text_primary"
+            android:layout_height="wrap_content" />
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent" />
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:tag="tint_accent_color,text_primary"
+            android:text="选择"
+            android:layout_height="wrap_content" />
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent" />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:tag="tint_accent_color,text_primary"
+            android:text="选择"
+            android:layout_height="wrap_content" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="match_parent" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:tag="tint_accent_color"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+```
+
+在需要换肤的控件中设置android:tag=“xxx”;
+
+换肤思路来源于：https://github.com/garretyoder/app-theme-engine ，感谢。
+
+此方案可以解决你所有打tag的控件的换肤，至于原生控件的换肤，思路是用SP保存当前的skinType，然后在Activity加载时判断skinType，设置对应的theme。你只需要在style.xml中指定对应的theme，指定不同的colorPrimary、colorPrimaryDark、colorAccent。详情参见[SkinChangeActivity](https://github.com/slimvan/slimvan4BaseLibrary/blob/master/app/src/main/java/com/slimvan/xingyun/activity/SkinChangeActivity.java)。
+
+
 
 ————————————————————————The End————————————————————
 
