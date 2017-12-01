@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0a719b</color>
-    <color name="colorPrimaryDark">#0a719b</color>
-    <color name="colorAccent">#0a719b</color>
+    <color name="colorPrimary">#161616</color>
+    <color name="colorPrimaryDark">#161616</color>
+    <color name="colorAccent">#161616</color>
 
     <!--通用颜色-->
-    <color name="main_color">#0a719b</color>
+    <color name="main_color">#161616</color>
     <color name="bg_color">#f4f4f4</color>
     <color name="divider_color">#e4e4e4</color>
     <color name="white">#ffffff</color>

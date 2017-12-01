@@ -65,7 +65,7 @@ public class SkinChangeActivity extends BaseHeaderActivity {
                             config.accentColor(main_color);
                             config.commit();
                             resetMDDialog();
-                            SkinHelper.setSkinType(position+1);
+                            SkinHelper.setSkinType(position);
                             finish();
                             recreate(); // recreation needed to reach the checkboxes in the preferences layout
                         }
@@ -78,7 +78,7 @@ public class SkinChangeActivity extends BaseHeaderActivity {
                             config.accentColor(main_color);
                             config.commit();
                             resetMDDialog();
-                            SkinHelper.setSkinType(position+1);
+                            SkinHelper.setSkinType(position);
                             finish();
                             recreate(); // recreation needed to reach the checkboxes in the preferences layout
                         }
@@ -91,7 +91,7 @@ public class SkinChangeActivity extends BaseHeaderActivity {
                             config.accentColor(main_color);
                             config.commit();
                             resetMDDialog();
-                            SkinHelper.setSkinType(position+1);
+                            SkinHelper.setSkinType(position);
                             finish();
                             recreate(); // recreation needed to reach the checkboxes in the preferences layout
                         }
@@ -104,7 +104,7 @@ public class SkinChangeActivity extends BaseHeaderActivity {
                             config.accentColor(main_color);
                             config.commit();
                             resetMDDialog();
-                            SkinHelper.setSkinType(position+1);
+                            SkinHelper.setSkinType(position);
                             finish();
                             recreate(); // recreation needed to reach the checkboxes in the preferences layout
                         }
@@ -117,7 +117,7 @@ public class SkinChangeActivity extends BaseHeaderActivity {
                             config.accentColor(main_color);
                             config.commit();
                             resetMDDialog();
-                            SkinHelper.setSkinType(position+1);
+                            SkinHelper.setSkinType(position);
                             finish();
                             recreate(); // recreation needed to reach the checkboxes in the preferences layout
                         }
@@ -129,7 +129,7 @@ public class SkinChangeActivity extends BaseHeaderActivity {
                             config.primaryColor(main_color);
                             config.accentColor(main_color);
                             config.commit();
-                            SkinHelper.setSkinType(position+1);
+                            SkinHelper.setSkinType(position);
                             finish();
                             recreate(); // recreation needed to reach the checkboxes in the preferences layout
                         }
@@ -142,7 +142,7 @@ public class SkinChangeActivity extends BaseHeaderActivity {
                             config.accentColor(main_color);
                             config.commit();
                             resetMDDialog();
-                            SkinHelper.setSkinType(position+1);
+                            SkinHelper.setSkinType(position);
                             finish();
                             recreate(); // recreation needed to reach the checkboxes in the preferences layout
                         }

@@ -129,4 +129,62 @@
         <item name="android:windowEnterAnimation">@anim/grow_from_topright_to_bottomleft</item>
         <item name="android:windowExitAnimation">@anim/shrink_from_bottomleft_to_topright</item>
     </style>
+
+    <!--skinCompat-->
+    <style name="AppTheme.red" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/red_color</item>
+        <item name="colorPrimaryDark">@color/red_color</item>
+        <item name="colorAccent">@color/red_color</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+    </style>
+
+    <style name="AppTheme.orange" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/orange_color</item>
+        <item name="colorPrimaryDark">@color/orange_color</item>
+        <item name="colorAccent">@color/orange_color</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+    </style>
+
+    <style name="AppTheme.black" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/black_color</item>
+        <item name="colorPrimaryDark">@color/black_color</item>
+        <item name="colorAccent">@color/black_color</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+    </style>
+
+    <style name="AppTheme.green" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/green_color</item>
+        <item name="colorPrimaryDark">@color/green_color</item>
+        <item name="colorAccent">@color/green_color</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+    </style>
+
+    <style name="AppTheme.blue" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue_color</item>
+        <item name="colorPrimaryDark">@color/blue_color</item>
+        <item name="colorAccent">@color/blue_color</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+    </style>
+
+    <style name="AppTheme.cyan" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/cyan_color</item>
+        <item name="colorPrimaryDark">@color/cyan_color</item>
+        <item name="colorAccent">@color/cyan_color</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+    </style>
+
+    <style name="AppTheme.purple" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/purple_color</item>
+        <item name="colorPrimaryDark">@color/purple_color</item>
+        <item name="colorAccent">@color/purple_color</item>
+        <item name="android:listDivider">@drawable/common_list_divider</item>
+    </style>
+    <!--skinCompat-->
 </resources>

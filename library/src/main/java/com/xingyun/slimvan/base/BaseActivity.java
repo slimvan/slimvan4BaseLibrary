@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,24 +15,22 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
 import com.bigkoo.svprogresshud.SVProgressHUD;
-import com.jaeger.library.StatusBarUtil;
 import com.xingyun.slimvan.R;
 import com.xingyun.slimvan.bean.MessageEvent;
 import com.xingyun.slimvan.listener.PermissionsResultListener;
 import com.xingyun.slimvan.util.LogUtils;
+import com.xingyun.slimvan.util.SPUtils;
+import com.xingyun.slimvan.util.SkinHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
-import static com.xingyun.slimvan.util.LogUtils.A;
 
 /**
  * Activity基类
@@ -323,6 +320,8 @@ public abstract class BaseActivity extends ATEActivity {
 
         if (ATE.didValuesChange(this, System.currentTimeMillis(), getATEKey()))
             recreate();
+        //判断界面主题颜色
+        initActivityTheme();
     }
 
     @Override
@@ -364,5 +363,36 @@ public abstract class BaseActivity extends ATEActivity {
     protected final String getATEKey() {
         return PreferenceManager.getDefaultSharedPreferences(this).getBoolean("dark_theme", false) ?
                 "dark_theme" : "light_theme";
+    }
+
+    /**
+     * 判断界面主题颜色
+     */
+    private void initActivityTheme() {
+        SPUtils sp = new SPUtils(SkinHelper.DEF_SHARE_NAME);
+        int skin_type = sp.getInt(SkinHelper.SKIN_TYPE);
+        switch (skin_type){
+            case 0:
+                setTheme(R.style.AppTheme_red);
+                break;
+            case 1:
+                setTheme(R.style.AppTheme_orange);
+                break;
+            case 2:
+                setTheme(R.style.AppTheme_black);
+                break;
+            case 3:
+                setTheme(R.style.AppTheme_green);
+                break;
+            case 4:
+                setTheme(R.style.AppTheme_blue);
+                break;
+            case 5:
+                setTheme(R.style.AppTheme_cyan);
+                break;
+            case 6:
+                setTheme(R.style.AppTheme_purple);
+                break;
+        }
     }
 }

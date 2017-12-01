@@ -13,7 +13,7 @@ import com.lcodecore.tkrefreshlayout.IBottomView;
 import com.xingyun.slimvan.R;
 
 /**
- * 加载更多底部布局
+ * 加载更多底部布局 (配合 tkrefreshlayout,已废弃)
  * Created by xingyun on 2017/6/30.
  */
 
