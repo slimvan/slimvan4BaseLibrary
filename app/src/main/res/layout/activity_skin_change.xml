@@ -61,6 +61,13 @@
             android:progress="60"
             android:max="100"
             android:layout_height="wrap_content" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:tag="bg_tint_accent_color_selector_lighter"
+            android:clickable="true"
+            android:text="@string/app_name"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <ListView
