@@ -162,14 +162,15 @@ public class ListActivity extends BaseRefreshLoadMoreActivity {
     @Override
     public void onRightClick(View v) {
         List<PopupListBean> menuItems = new ArrayList<>();
-        menuItems.add(new PopupListBean("Settings"));
-        menuItems.add(new PopupListBean("Settings"));
-        menuItems.add(new PopupListBean("Settings"));
-        menuItems.add(new PopupListBean("Settings"));
+        menuItems.add(new PopupListBean("Settings", R.mipmap.ic_1));
+        menuItems.add(new PopupListBean("Settings", R.mipmap.ic_2));
+        menuItems.add(new PopupListBean("Settings", R.mipmap.ic_3));
+        menuItems.add(new PopupListBean("Settings", R.mipmap.ic_4));
         showPopupMenu(menuItems, new PopupMenuItemClick() {
             @Override
             public void onPopupMenuItemClick(PopupWindow popupWindow, int position) {
-
+                ToastUtils.showShort(position + "");
+                popupWindow.dismiss();
             }
         });
     }
