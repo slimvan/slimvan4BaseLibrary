@@ -8,10 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.afollestad.appthemeengine.ATE;
@@ -25,7 +30,9 @@ import com.slimvan.xingyun.bean.TabEntity;
 import com.slimvan.xingyun.fragment.ForumFragment;
 import com.slimvan.xingyun.fragment.HomePageFragment;
 import com.slimvan.xingyun.fragment.PersonalFragment;
+import com.xingyun.slimvan.adapter.PopupListAdapter;
 import com.xingyun.slimvan.base.BaseFragmentActivity;
+import com.xingyun.slimvan.bean.PopupListBean;
 import com.xingyun.slimvan.util.AppUtils;
 
 import java.lang.reflect.Field;
@@ -170,57 +177,65 @@ public class MainActivity extends BaseFragmentActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_title_right:
-//                DialogHelper.commonTimePicker(MainActivity.this);
-                showAlertDialog();
+                showPopupMenu();
                 break;
         }
     }
 
-    private void showAlertDialog() {
-        //或者builder模式创建
-        new AlertView.Builder().setContext(MainActivity.this)
-                .setStyle(AlertView.Style.Alert)
-                .setTitle("Title")
-                .setMessage("Message")
-                .setCancelText("取消")
-//                .setOthers(new String[]{"确定"})
-                .setOthers(new String[]{"一环", "二环", "三环", "四环", "五环", "比五环多一环"})
-                .setOnItemClickListener(new OnItemClickListener() {
-                    @Override
-                    public void onItemClick(Object o, int position) {
-                        Intent intent;
-                        switch (position) {
-                            case 0:
-                                intent = new Intent(mContext, ListActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 1:
-                                intent = new Intent(mContext, SecondActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 2:
-                                intent = new Intent(mContext, ToolBarActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 3:
-                                intent = new Intent(mContext, AppBarActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 4:
-                                intent = new Intent(mContext, CoordinatorActivity.class);
-                                startActivity(intent);
-                                break;
-                            case 5:
-                                intent = new Intent(mContext, CardBagActivity.class);
-                                startActivity(intent);
-                                break;
-                        }
-                    }
-                })
-                .build()
-                .setCancelable(true)
-                .show();
+    /**
+     * 右上角更多菜单 使用popupWindow实现
+     */
+    protected void showPopupMenu() {
+        View contentView = LayoutInflater.from(mContext).inflate(R.layout.layout_popupwindow_listview, null);
+        final PopupWindow popupWindow = new PopupWindow(contentView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        ListView listView = (ListView) contentView.findViewById(R.id.listView);
+        List<PopupListBean> menuItems = new ArrayList<>();
+        for (int i = 0; i < 6; i++) {
+            PopupListBean bean = new PopupListBean("测试页" + i);
+            menuItems.add(bean);
+        }
+        listView.setAdapter(new PopupListAdapter(mContext, menuItems));
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent;
+                switch (position) {
+                    case 0:
+                        intent = new Intent(mContext, ListActivity.class);
+                        startActivity(intent);
+                        popupWindow.dismiss();
+                        break;
+                    case 1:
+                        intent = new Intent(mContext, SecondActivity.class);
+                        startActivity(intent);
+                        popupWindow.dismiss();
+                        break;
+                    case 2:
+                        intent = new Intent(mContext, ToolBarActivity.class);
+                        startActivity(intent);
+                        popupWindow.dismiss();
+                        break;
+                    case 3:
+                        intent = new Intent(mContext, AppBarActivity.class);
+                        startActivity(intent);
+                        popupWindow.dismiss();
+                        break;
+                    case 4:
+                        intent = new Intent(mContext, CoordinatorActivity.class);
+                        startActivity(intent);
+                        popupWindow.dismiss();
+                        break;
+                    case 5:
+                        intent = new Intent(mContext, CardBagActivity.class);
+                        startActivity(intent);
+                        popupWindow.dismiss();
+                        break;
+                }
 
+            }
+        });
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.showAsDropDown(tvTitleRight, -120, 0);
     }
 
     @Override

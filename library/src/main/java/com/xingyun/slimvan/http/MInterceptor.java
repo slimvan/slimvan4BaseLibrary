@@ -1,6 +1,5 @@
 package com.xingyun.slimvan.http;
 
-import android.app.Application;
 import android.util.Log;
 
 import org.json.JSONException;
