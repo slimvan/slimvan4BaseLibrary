@@ -12,31 +12,36 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.afollestad.appthemeengine.Config;
 import com.bilibili.boxing.Boxing;
 import com.bilibili.boxing.model.config.BoxingConfig;
 import com.bilibili.boxing.model.entity.BaseMedia;
 import com.bilibili.boxing_impl.ui.BoxingActivity;
 import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.activity.DialogActivity;
 import com.slimvan.xingyun.activity.SkinChangeActivity;
 import com.slimvan.xingyun.activity.TipsDialogActivity;
+import com.slimvan.xingyun.adapter.SimpleListRecyclerAdapter;
+import com.slimvan.xingyun.bean.SimpleListBean;
 import com.slimvan.xingyun.config.Constants;
 import com.slimvan.xingyun.utils.UCropUtils;
 import com.xingyun.slimvan.base.BaseFragment;
 import com.xingyun.slimvan.listener.PermissionsResultListener;
 import com.xingyun.slimvan.util.AppUtils;
 import com.xingyun.slimvan.util.ImageUtils;
+import com.xingyun.slimvan.view.DividerItemDecoration;
 import com.yalantis.ucrop.UCrop;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,19 +56,13 @@ public class PersonalFragment extends BaseFragment {
 
 
     Unbinder unbinder;
-    @BindView(R.id.tv_dialog)
-    TextView tvDialog;
-    @BindView(R.id.tv_webView)
-    ImageView tvWebView;
-    @BindView(R.id.tv_tips)
-    TextView tvTips;
+    @BindView(R.id.iv_icon)
+    ImageView ivIcon;
     @BindView(R.id.iv_google_bg)
     ImageView ivGoogleBg;
-    @BindView(R.id.tv_skins)
-    TextView tvSkins;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
 
-    private int main_color;
-    private int skin_type;
 
     public static PersonalFragment getInstance() {
         PersonalFragment personalFragment = new PersonalFragment();
@@ -76,14 +75,45 @@ public class PersonalFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        initData();
+        initRecyclerView();
         return view;
     }
 
-    private void initData() {
-        if (Config.getPrimaryColor() != 0) {
-            main_color = Config.getPrimaryColor();
-        }
+    private void initRecyclerView() {
+        List<SimpleListBean> datas = new ArrayList<>();
+        datas.add(new SimpleListBean("Dialog使用体验",R.mipmap.brazil));
+        datas.add(new SimpleListBean("交互提示框&popupWindow",R.mipmap.argentina));
+        datas.add(new SimpleListBean("换肤实现",R.mipmap.chile));
+        SimpleListRecyclerAdapter adapter = new SimpleListRecyclerAdapter(datas);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
+        recyclerView.setAdapter(adapter);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent;
+                switch (position) {
+                    case 0:
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, "personal_dialog");
+                            intent = new Intent(mContext, DialogActivity.class);
+                            ActivityCompat.startActivity(mContext, intent, options.toBundle());
+                        } else {
+                            intent = new Intent(mContext, DialogActivity.class);
+                            startActivity(intent);
+                        }
+                        break;
+                    case 1:
+                        intent = new Intent(mContext, TipsDialogActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 2:
+                        intent = new Intent(mContext, SkinChangeActivity.class);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
     }
 
     /**
@@ -102,21 +132,10 @@ public class PersonalFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.tv_dialog, R.id.tv_webView, R.id.tv_tips, R.id.tv_skins})
+    @OnClick({R.id.iv_icon})
     public void onViewClicked(View view) {
-        Intent intent;
         switch (view.getId()) {
-            case R.id.tv_dialog:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(getActivity(), view, "personal_dialog");
-                    intent = new Intent(mContext, DialogActivity.class);
-                    ActivityCompat.startActivity(mContext, intent, options.toBundle());
-                } else {
-                    intent = new Intent(mContext, DialogActivity.class);
-                    startActivity(intent);
-                }
-                break;
-            case R.id.tv_webView:
+            case R.id.iv_icon:
                 final String[] permissions = new String[]{Manifest.permission.CAMERA,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
                         Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -132,14 +151,6 @@ public class PersonalFragment extends BaseFragment {
                         showRationaleDialog("请允许" + AppUtils.getAppName(mContext) + "获取相应权限", permissions, Constants.PERMISSION_REQUEST_CODE);
                     }
                 });
-                break;
-            case R.id.tv_tips:
-                intent = new Intent(mContext, TipsDialogActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.tv_skins:
-                intent = new Intent(mContext, SkinChangeActivity.class);
-                startActivity(intent);
                 break;
         }
     }
@@ -171,7 +182,7 @@ public class PersonalFragment extends BaseFragment {
             case UCrop.REQUEST_CROP:
                 if (data != null) {
                     Uri output = UCrop.getOutput(data);
-                    Glide.with(mContext).load(output).into(tvWebView);
+                    Glide.with(mContext).load(output).into(ivIcon);
                 }
                 break;
         }

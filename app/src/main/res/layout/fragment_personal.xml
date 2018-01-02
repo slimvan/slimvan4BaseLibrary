@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context="com.slimvan.xingyun.fragment.PersonalFragment">
 
-
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -20,7 +19,7 @@
 
 
         <com.xingyun.slimvan.view.widget.RoundRectImageView
-            android:id="@+id/tv_webView"
+            android:id="@+id/iv_icon"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_gravity="center"
@@ -32,48 +31,10 @@
 
     </FrameLayout>
 
-
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-
-        <TextView
-            android:id="@+id/tv_dialog"
-            android:transitionName="personal_dialog"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:background="@color/colorPrimary"
-            android:tag="bg_primary_color"
-            android:padding="20dp"
-            android:text="Dialog体验"
-            android:textColor="#ffffff" />
-
-        <TextView
-            android:id="@+id/tv_tips"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:tag="bg_primary_color"
-            android:background="@color/colorPrimary"
-            android:padding="20dp"
-            android:text="TipsView"
-            android:textColor="#ffffff" />
-
-        <TextView
-            android:id="@+id/tv_skins"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:tag="bg_primary_color"
-            android:background="@color/colorPrimary"
-            android:padding="20dp"
-            android:text="Skins"
-            android:textColor="#ffffff" />
-    </LinearLayout>
-
+        android:tag="bg_primary_color"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
 </LinearLayout>
