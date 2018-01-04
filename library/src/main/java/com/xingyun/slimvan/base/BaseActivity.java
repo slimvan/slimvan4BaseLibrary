@@ -18,7 +18,6 @@ import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.afollestad.appthemeengine.ATE;
 import com.afollestad.appthemeengine.ATEActivity;
 import com.bigkoo.svprogresshud.SVProgressHUD;
 import com.xingyun.slimvan.R;
@@ -57,7 +56,6 @@ public abstract class BaseActivity extends ATEActivity {
         super.onCreate(savedInstanceState);
         LogUtils.d(TAG, "onCreate...");
         mContext = this;
-        ATE.preApply(this, getATEKey());
         super.setContentView(R.layout.activity_base);
 
         initIntentParams(getIntent());
@@ -317,9 +315,6 @@ public abstract class BaseActivity extends ATEActivity {
     protected void onResume() {
         super.onResume();
         LogUtils.d(TAG, "onResume...");
-
-        if (ATE.didValuesChange(this, System.currentTimeMillis(), getATEKey()))
-            recreate();
         //判断界面主题颜色
         initActivityTheme();
     }
@@ -328,8 +323,6 @@ public abstract class BaseActivity extends ATEActivity {
     protected void onStart() {
         super.onStart();
         LogUtils.d(TAG, "onStart..");
-
-        ATE.apply(this, getATEKey());
     }
 
     @Override
@@ -358,6 +351,7 @@ public abstract class BaseActivity extends ATEActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    /*需要实现换肤 可以将BaseActivity继承自ATEActivity 重写此方法 否则继承AppcompatActivity即可*/
     @Nullable
     @Override
     protected final String getATEKey() {
@@ -371,7 +365,7 @@ public abstract class BaseActivity extends ATEActivity {
     private void initActivityTheme() {
         SPUtils sp = new SPUtils(SkinHelper.DEF_SHARE_NAME);
         int skin_type = sp.getInt(SkinHelper.SKIN_TYPE);
-        switch (skin_type){
+        switch (skin_type) {
             case 0:
                 setTheme(R.style.AppTheme_red);
                 break;
