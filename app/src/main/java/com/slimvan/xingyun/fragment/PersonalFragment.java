@@ -27,6 +27,7 @@ import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.activity.DialogActivity;
+import com.slimvan.xingyun.activity.RvGalleryActivity;
 import com.slimvan.xingyun.activity.SkinChangeActivity;
 import com.slimvan.xingyun.activity.TipsDialogActivity;
 import com.slimvan.xingyun.adapter.SimpleListRecyclerAdapter;
@@ -81,9 +82,10 @@ public class PersonalFragment extends BaseFragment {
 
     private void initRecyclerView() {
         List<SimpleListBean> datas = new ArrayList<>();
-        datas.add(new SimpleListBean("Dialog使用体验",R.mipmap.brazil));
-        datas.add(new SimpleListBean("交互提示框&popupWindow",R.mipmap.argentina));
-        datas.add(new SimpleListBean("换肤实现",R.mipmap.chile));
+        datas.add(new SimpleListBean("Dialog使用体验", R.mipmap.brazil));
+        datas.add(new SimpleListBean("交互提示框&popupWindow", R.mipmap.argentina));
+        datas.add(new SimpleListBean("换肤实现", R.mipmap.chile));
+        datas.add(new SimpleListBean("仿魅族Banner", R.mipmap.brazil));
         SimpleListRecyclerAdapter adapter = new SimpleListRecyclerAdapter(datas);
         recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         recyclerView.addItemDecoration(new DividerItemDecoration(mContext, LinearLayoutManager.VERTICAL));
@@ -109,6 +111,10 @@ public class PersonalFragment extends BaseFragment {
                         break;
                     case 2:
                         intent = new Intent(mContext, SkinChangeActivity.class);
+                        startActivity(intent);
+                        break;
+                    case 3:
+                        intent = new Intent(mContext, RvGalleryActivity.class);
                         startActivity(intent);
                         break;
                 }

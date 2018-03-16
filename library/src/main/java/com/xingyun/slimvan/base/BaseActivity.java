@@ -316,7 +316,7 @@ public abstract class BaseActivity extends ATEActivity {
         super.onResume();
         LogUtils.d(TAG, "onResume...");
         //判断界面主题颜色
-        initActivityTheme();
+//        initActivityTheme();
     }
 
     @Override
