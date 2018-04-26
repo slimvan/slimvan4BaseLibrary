@@ -10,16 +10,6 @@
         <item name="android:actionBarSize">56dp</item>
     </style>
 
-    <!--加载提示框-->
-    <style name="WinDialog" parent="@android:style/Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowIsTranslucent">false</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:background">@android:color/transparent</item>
-    </style>
-
 
     <!--toolbar样式  暗色系-->
     <style name="ToolbarDarkTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
@@ -52,139 +42,10 @@
     </style>
 
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-
     <style name="style_title_bar_title">
         <item name="android:textSize">20dp</item>
         <item name="android:textColor">#ffffff</item>
     </style>
 
-    <style name="load_more_progress" parent="AppTheme">
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-    </style>
 
-
-
-    <style name="QMUI.TipDialog" parent="android:Theme.Dialog">
-        <item name="android:windowFrame">@null</item>
-        <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:backgroundDimEnabled">false</item>
-        <item name="android:windowIsFloating">true</item>
-        <item name="android:windowContentOverlay">@null</item>
-    </style>
-
-
-    <style name="style_tips_dialog">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-        <item name="android:gravity">center</item>
-        <item name="android:minHeight">56dp</item>
-        <item name="android:minWidth">120dp</item>
-        <item name="android:orientation">vertical</item>
-        <item name="android:paddingBottom">12dp</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:paddingRight">20dp</item>
-        <item name="android:paddingTop">12dp</item>
-    </style>
-
-
-    <style name="QMUI.Animation" parent="@android:style/Animation" />
-
-    <style name="QMUI.Animation.PopUpMenu" />
-
-    <style name="QMUI.Animation.PopUpMenu.Center">
-        <item name="android:windowEnterAnimation">@anim/grow_from_bottom</item>
-        <item name="android:windowExitAnimation">@anim/shrink_from_top</item>
-    </style>
-
-    <style name="QMUI.Animation.PopUpMenu.Left">
-        <item name="android:windowEnterAnimation">@anim/grow_from_bottomleft_to_topright</item>
-        <item name="android:windowExitAnimation">@anim/shrink_from_topright_to_bottomleft</item>
-    </style>
-
-    <style name="QMUI.Animation.PopUpMenu.Right">
-        <item name="android:windowEnterAnimation">@anim/grow_from_bottomright_to_topleft</item>
-        <item name="android:windowExitAnimation">@anim/shrink_from_topleft_to_bottomright</item>
-    </style>
-
-    <style name="QMUI.Animation.PopDownMenu" />
-
-    <style name="QMUI.Animation.PopDownMenu.Center">
-        <item name="android:windowEnterAnimation">@anim/grow_from_top</item>
-        <item name="android:windowExitAnimation">@anim/shrink_from_bottom</item>
-    </style>
-
-    <style name="QMUI.Animation.PopDownMenu.Left">
-        <item name="android:windowEnterAnimation">@anim/grow_from_topleft_to_bottomright</item>
-        <item name="android:windowExitAnimation">@anim/shrink_from_bottomright_to_topleft</item>
-    </style>
-
-    <style name="QMUI.Animation.PopDownMenu.Right">
-        <item name="android:windowEnterAnimation">@anim/grow_from_topright_to_bottomleft</item>
-        <item name="android:windowExitAnimation">@anim/shrink_from_bottomleft_to_topright</item>
-    </style>
-
-    <!--skinCompat-->
-    <style name="AppTheme.red" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/red_color</item>
-        <item name="colorPrimaryDark">@color/red_color</item>
-        <item name="colorAccent">@color/red_color</item>
-        <item name="android:listDivider">@drawable/common_list_divider</item>
-    </style>
-
-    <style name="AppTheme.orange" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/orange_color</item>
-        <item name="colorPrimaryDark">@color/orange_color</item>
-        <item name="colorAccent">@color/orange_color</item>
-        <item name="android:listDivider">@drawable/common_list_divider</item>
-    </style>
-
-    <style name="AppTheme.black" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/black_color</item>
-        <item name="colorPrimaryDark">@color/black_color</item>
-        <item name="colorAccent">@color/black_color</item>
-        <item name="android:listDivider">@drawable/common_list_divider</item>
-    </style>
-
-    <style name="AppTheme.green" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/green_color</item>
-        <item name="colorPrimaryDark">@color/green_color</item>
-        <item name="colorAccent">@color/green_color</item>
-        <item name="android:listDivider">@drawable/common_list_divider</item>
-    </style>
-
-    <style name="AppTheme.blue" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/blue_color</item>
-        <item name="colorPrimaryDark">@color/blue_color</item>
-        <item name="colorAccent">@color/blue_color</item>
-        <item name="android:listDivider">@drawable/common_list_divider</item>
-    </style>
-
-    <style name="AppTheme.cyan" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/cyan_color</item>
-        <item name="colorPrimaryDark">@color/cyan_color</item>
-        <item name="colorAccent">@color/cyan_color</item>
-        <item name="android:listDivider">@drawable/common_list_divider</item>
-    </style>
-
-    <style name="AppTheme.purple" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/purple_color</item>
-        <item name="colorPrimaryDark">@color/purple_color</item>
-        <item name="colorAccent">@color/purple_color</item>
-        <item name="android:listDivider">@drawable/common_list_divider</item>
-    </style>
-    <!--skinCompat-->
 </resources>

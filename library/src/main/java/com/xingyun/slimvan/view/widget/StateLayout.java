@@ -19,6 +19,7 @@ import com.xingyun.slimvan.R;
  */
 
 public class StateLayout extends FrameLayout {
+    public static final int STATE_NORMAL = 0;
     public static final int STATE_EMPTY_DATA = 1;
     public static final int STATE_NETWORK_ERROR = 2;
     public static final int STATE_SERVER_ERROR = 3;
@@ -89,17 +90,26 @@ public class StateLayout extends FrameLayout {
      */
     public void switchStates(int states) {
         switch (states) {
+            case STATE_NORMAL:
+                setVisibility(GONE);
+                empty_view.setVisibility(GONE);
+                network_error_view.setVisibility(View.GONE);
+                server_error_view.setVisibility(View.GONE);
+                break;
             case STATE_EMPTY_DATA:
+                setVisibility(VISIBLE);
                 empty_view.setVisibility(View.VISIBLE);
                 network_error_view.setVisibility(View.GONE);
                 server_error_view.setVisibility(View.GONE);
                 break;
             case STATE_NETWORK_ERROR:
+                setVisibility(VISIBLE);
                 empty_view.setVisibility(View.GONE);
                 network_error_view.setVisibility(View.VISIBLE);
                 server_error_view.setVisibility(View.GONE);
                 break;
             case STATE_SERVER_ERROR:
+                setVisibility(VISIBLE);
                 empty_view.setVisibility(View.GONE);
                 network_error_view.setVisibility(View.GONE);
                 server_error_view.setVisibility(View.VISIBLE);

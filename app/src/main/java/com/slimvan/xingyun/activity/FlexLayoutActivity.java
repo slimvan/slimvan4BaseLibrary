@@ -3,20 +3,17 @@ package com.slimvan.xingyun.activity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.flexbox.FlexboxLayout;
 import com.slimvan.xingyun.R;
-import com.xingyun.slimvan.base.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.util.ConvertUtils;
-import com.xingyun.slimvan.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class FlexLayoutActivity extends BaseHeaderActivity {
+public class FlexLayoutActivity extends BaseActivity {
 
     @BindView(R.id.flex_layout)
     FlexboxLayout flexLayout;
@@ -46,19 +43,4 @@ public class FlexLayoutActivity extends BaseHeaderActivity {
         }
     }
 
-
-    @Override
-    public void onStateLayoutClick() {
-
-    }
-
-    @Override
-    public void onLeftClick(View v) {
-        this.finish();
-    }
-
-    @Override
-    public void onRightClick(View v) {
-
-    }
 }

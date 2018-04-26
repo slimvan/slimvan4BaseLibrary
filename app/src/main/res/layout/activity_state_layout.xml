@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.xingyun.slimvan.base.BaseActivity">
+    android:orientation="vertical">
 
     <include layout="@layout/layout_base_title_bar"></include>
 
@@ -12,18 +10,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/ll_root"
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:gravity="center"
+            android:text="正常内容"
+            android:textColor="@color/black"
+            android:textSize="18sp"></TextView>
 
         <com.xingyun.slimvan.view.widget.StateLayout
             android:id="@+id/state_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone" />
-
+            android:visibility="gone"></com.xingyun.slimvan.view.widget.StateLayout>
     </FrameLayout>
 
 </LinearLayout>

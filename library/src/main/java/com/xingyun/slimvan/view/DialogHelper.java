@@ -4,36 +4,27 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.SparseBooleanArray;
 import android.view.View;
-import android.widget.AbsListView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bigkoo.alertview.AlertView;
 import com.bigkoo.alertview.OnItemClickListener;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bigkoo.pickerview.TimePickerView;
-import com.xingyun.slimvan.R;
-import com.xingyun.slimvan.bean.JsonBean;
-import com.xingyun.slimvan.bean.ProvinceBean;
+import com.xingyun.slimvan.bean.AreaJsonBean;
 import com.xingyun.slimvan.listener.AreaPickerConfirmListener;
 import com.xingyun.slimvan.listener.DialogConfirmClickListener;
 import com.xingyun.slimvan.listener.DialogMultiConfirmClickListener;
 import com.xingyun.slimvan.listener.TimePickerConfirmListener;
 import com.xingyun.slimvan.util.GetJsonDataUtil;
 import com.xingyun.slimvan.util.TimeUtils;
-import com.xingyun.slimvan.util.ToastUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-
-import static android.R.id.list;
 
 /**
  * 弹窗辅助工具类
@@ -41,7 +32,7 @@ import static android.R.id.list;
  */
 
 public class DialogHelper {
-    private static ArrayList<JsonBean> options1Items = new ArrayList<>();
+    private static ArrayList<AreaJsonBean> options1Items = new ArrayList<>();
     private static ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
     private static ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
 
@@ -139,7 +130,7 @@ public class DialogHelper {
          * */
         String JsonData = new GetJsonDataUtil().getJson(mContext, "province.json");//获取assets目录下的json文件数据
 
-        ArrayList<JsonBean> jsonBean = GetJsonDataUtil.parseData(JsonData);//用Gson 转成实体
+        ArrayList<AreaJsonBean> jsonBean = GetJsonDataUtil.parseData(JsonData);//用Gson 转成实体
 
         /**
          * 添加省份数据

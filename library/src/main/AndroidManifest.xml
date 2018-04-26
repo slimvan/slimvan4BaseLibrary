@@ -14,10 +14,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".base.BaseActivity" />
-        <activity android:name=".base.BaseHeaderActivity" />
-        <activity android:name=".base.BaseFragmentActivity" />
-        <activity android:name=".base.BaseRefreshActivity" />
-        <activity android:name=".base.BaseRefreshLoadMoreActivity"></activity>
     </application>
 
 </manifest>

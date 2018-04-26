@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="qmui_content_spacing_horizontal" format="dimension"/> <!-- margin 和 padding 等使用的内容通用水平间距 -->
-
-    <declare-styleable name="QMUILoadingView">
-        <attr name="qmui_loading_view_size" format="dimension"/>
-        <attr name="android:color"/>
-    </declare-styleable>
-
-    <attr name="QMUILoadingStyle" format="reference"/>
-
-    <!-- tips -->
-    <attr name="qmui_tip_dialog_bg" format="reference"/>
-    <attr name="qmui_tip_dialog_min_width" format="dimension"/>
-    <attr name="qmui_tip_dialog_min_height" format="dimension"/>
-    <attr name="qmui_tip_dialog_padding_vertical" format="dimension"/>
-    <attr name="qmui_tip_dialog_padding_horizontal" format="dimension"/>
-    <attr name="qmui_tip_dialog_margin_horizontal" format="dimension"/>
-
 
     <!--圆角ImageView-->
-
     <declare-styleable name="RoundImageView">
         <attr name="radius" format="float"></attr>
     </declare-styleable>

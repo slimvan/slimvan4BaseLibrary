@@ -13,7 +13,7 @@ import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.adapter.RecyclerListAdapter;
 import com.slimvan.xingyun.bean.DoubanBookList;
 import com.slimvan.xingyun.http.api.DoubanApi;
-import com.xingyun.slimvan.base.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.bean.PopupListBean;
 import com.xingyun.slimvan.http.MSubscriber;
 import com.xingyun.slimvan.http.RetrofitBuilder;
@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
-public class SecondActivity extends BaseHeaderActivity {
+public class SecondActivity extends BaseActivity {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -50,10 +50,6 @@ public class SecondActivity extends BaseHeaderActivity {
         getData();
     }
 
-    @Override
-    public void onStateLayoutClick() {
-        getData();
-    }
 
     private void getData() {
         RetrofitBuilder.build(DoubanApi.class).
@@ -64,7 +60,6 @@ public class SecondActivity extends BaseHeaderActivity {
                     @Override
                     public void onSuccess(DoubanBookList bookList) {
                         Log.i(TAG, "success");
-                        showContent();
                         adapter.setNewData(bookList.getBooks());
                     }
 
@@ -114,7 +109,6 @@ public class SecondActivity extends BaseHeaderActivity {
                     @Override
                     public void onSuccess(DoubanBookList bookList) {
                         Log.i(TAG, "success");
-                        showContent();
                         adapter.setNewData(bookList.getBooks());
                         currentPage = 1;
                         adapter.disableLoadMoreIfNotFullPage(recyclerView);
@@ -147,43 +141,6 @@ public class SecondActivity extends BaseHeaderActivity {
                         Log.i(TAG, "error");
                     }
                 });
-    }
-
-    @Override
-    public void onLeftClick(View v) {
-        SecondActivity.this.finish();
-    }
-
-    @Override
-    public void onRightClick(View v) {
-        List<PopupListBean> menuItems = new ArrayList<>();
-        menuItems.add(new PopupListBean("Empty Data"));
-        menuItems.add(new PopupListBean("NetWork Error"));
-        menuItems.add(new PopupListBean("Server Error"));
-        menuItems.add(new PopupListBean("Settings"));
-        showPopupMenu(menuItems, new PopupMenuItemClick() {
-            @Override
-            public void onPopupMenuItemClick(PopupWindow popupWindow, int position) {
-                try {
-                    switch (position) {
-                        case 0:
-                            showEmptyView();
-                            popupWindow.dismiss();
-                            break;
-                        case 1:
-                            showNetWorkErrorView();
-                            popupWindow.dismiss();
-                            break;
-                        case 2:
-                            showServerErrorView();
-                            popupWindow.dismiss();
-                            break;
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
     }
 
 }

@@ -13,7 +13,7 @@ import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.adapter.BannerAdapter;
 import com.slimvan.xingyun.view.banner.AnimManager;
 import com.slimvan.xingyun.view.banner.GalleryRecyclerView;
-import com.xingyun.slimvan.base.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.util.ToastUtils;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
@@ -25,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class RvGalleryActivity extends BaseHeaderActivity {
+public class RvGalleryActivity extends BaseActivity {
 
     @BindView(R.id.rv_banner)
     GalleryRecyclerView rvBanner;
@@ -125,18 +125,4 @@ public class RvGalleryActivity extends BaseHeaderActivity {
                 });                          // 设置点击事件
     }
 
-    @Override
-    public void onStateLayoutClick() {
-
-    }
-
-    @Override
-    public void onLeftClick(View v) {
-        finish();
-    }
-
-    @Override
-    public void onRightClick(View v) {
-
-    }
 }

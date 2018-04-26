@@ -8,7 +8,7 @@ import java.util.List;
  * <json数据源>
  */
 
-public class JsonBean  implements IPickerViewData{
+public class AreaJsonBean implements IPickerViewData{
 
 
     /**

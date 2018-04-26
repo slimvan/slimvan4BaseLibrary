@@ -61,5 +61,4 @@ dependencies {
     compile 'com.zhy:okhttputils:2.6.2'
     compile 'com.jaeger.statusbarutil:library:1.4.0'
     testCompile 'junit:junit:4.12'
-    compile project(':skin_compat_library')
 }

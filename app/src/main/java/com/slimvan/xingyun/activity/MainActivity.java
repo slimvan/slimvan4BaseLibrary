@@ -1,5 +1,6 @@
 package com.slimvan.xingyun.activity;
 
+import android.app.ListActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
@@ -19,9 +20,6 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.afollestad.appthemeengine.ATE;
-import com.bigkoo.alertview.AlertView;
-import com.bigkoo.alertview.OnItemClickListener;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.widget.MsgView;
@@ -31,7 +29,7 @@ import com.slimvan.xingyun.fragment.ForumFragment;
 import com.slimvan.xingyun.fragment.HomePageFragment;
 import com.slimvan.xingyun.fragment.PersonalFragment;
 import com.xingyun.slimvan.adapter.PopupListAdapter;
-import com.xingyun.slimvan.base.BaseFragmentActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.bean.PopupListBean;
 import com.xingyun.slimvan.util.AppUtils;
 
@@ -43,7 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseFragmentActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.iv_back)
     ImageView ivBack;
@@ -159,19 +157,6 @@ public class MainActivity extends BaseFragmentActivity {
         tvTitle.setText(AppUtils.getAppName(mContext));
     }
 
-    @Override
-    protected List<Fragment> setFragments() {
-        fragments = new ArrayList<>();
-//        fragments.add(HomePageFragment.getInstance());
-//        fragments.add(ForumFragment.getInstance());
-//        fragments.add(PersonalFragment.getInstance());
-        return fragments;
-    }
-
-    @Override
-    protected int setContainerId() {
-        return R.id.fl_content;
-    }
 
     @OnClick({R.id.iv_back, R.id.tv_title_right})
     public void onViewClicked(View view) {
@@ -201,9 +186,6 @@ public class MainActivity extends BaseFragmentActivity {
                 Intent intent;
                 switch (position) {
                     case 0:
-                        intent = new Intent(mContext, ListActivity.class);
-                        startActivity(intent);
-                        popupWindow.dismiss();
                         break;
                     case 1:
                         intent = new Intent(mContext, SecondActivity.class);
@@ -211,9 +193,6 @@ public class MainActivity extends BaseFragmentActivity {
                         popupWindow.dismiss();
                         break;
                     case 2:
-                        intent = new Intent(mContext, ToolBarActivity.class);
-                        startActivity(intent);
-                        popupWindow.dismiss();
                         break;
                     case 3:
                         intent = new Intent(mContext, AppBarActivity.class);
@@ -221,8 +200,6 @@ public class MainActivity extends BaseFragmentActivity {
                         popupWindow.dismiss();
                         break;
                     case 4:
-                        intent = new Intent(mContext, CoordinatorActivity.class);
-                        startActivity(intent);
                         popupWindow.dismiss();
                         break;
                     case 5:

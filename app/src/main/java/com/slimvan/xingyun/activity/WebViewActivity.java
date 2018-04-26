@@ -16,12 +16,12 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.slimvan.xingyun.R;
-import com.xingyun.slimvan.base.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WebViewActivity extends BaseHeaderActivity {
+public class WebViewActivity extends BaseActivity {
 
     @BindView(R.id.progress_bar)
     ProgressBar progressBar;
@@ -112,7 +112,6 @@ public class WebViewActivity extends BaseHeaderActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             // 返回值是true的时候控制去WebView打开，为false调用系统浏览器或第三方浏览器
-            showContent();
             view.loadUrl(url);
             return true;
         }
@@ -121,24 +120,8 @@ public class WebViewActivity extends BaseHeaderActivity {
         public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
             webView.setVisibility(View.GONE);
             Toast.makeText(mContext, "连接异常", Toast.LENGTH_SHORT).show();
-            showNetWorkErrorView();
         }
 
     }
 
-
-    @Override
-    public void onStateLayoutClick() {
-        webView.reload();
-    }
-
-    @Override
-    public void onLeftClick(View v) {
-        WebViewActivity.this.finish();
-    }
-
-    @Override
-    public void onRightClick(View v) {
-
-    }
 }

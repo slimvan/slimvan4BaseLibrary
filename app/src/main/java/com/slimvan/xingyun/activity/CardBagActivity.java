@@ -9,13 +9,13 @@ import android.widget.TextView;
 
 import com.github.czy1121.view.TurnCardListView;
 import com.slimvan.xingyun.R;
-import com.xingyun.slimvan.base.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.util.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CardBagActivity extends BaseHeaderActivity {
+public class CardBagActivity extends BaseActivity {
 
 
     @BindView(R.id.card_list)
@@ -31,20 +31,6 @@ public class CardBagActivity extends BaseHeaderActivity {
         initCardList();
     }
 
-    @Override
-    public void onStateLayoutClick() {
-
-    }
-
-    @Override
-    public void onLeftClick(View v) {
-        CardBagActivity.this.finish();
-    }
-
-    @Override
-    public void onRightClick(View v) {
-
-    }
 
     private void initCardList() {
         cardList.setAdapter(new BaseAdapter() {

@@ -6,7 +6,6 @@
 
     <color name="red_color">#d23c3e</color>
     <color name="orange_color">#ff8400</color>
-    <color name="black_color">#161616</color>
     <color name="green_color">#009944</color>
     <color name="blue_color">#0284e9</color>
     <color name="cyan_color">#01e2c5</color>
@@ -20,10 +19,7 @@
     <color name="gray_very_light">#E0E0E0</color>
     <color name="gray_deep">#666666</color>
     <color name="black_overlay">#66000000</color>
-    <color name="activity_background">#EEEEEE</color>
     <color name="transparent">#00000000</color>
-    <color name="main_background">#EEEEEE</color>
-    <color name="google_assistant_background">#F5F5F5</color>
 
     <!-- Material Design Color - Color palette -->
     <color name="red_primary">#F44336</color>

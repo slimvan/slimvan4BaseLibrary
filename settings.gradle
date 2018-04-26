@@ -1,1 +1,1 @@
-include ':library', ':app', ':skin_compat_library', ':mzbanner'
+include ':library', ':app', ':mzbanner'

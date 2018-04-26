@@ -20,7 +20,7 @@ import com.bigkoo.alertview.OnItemClickListener;
 import com.bumptech.glide.Glide;
 import com.slimvan.xingyun.R;
 import com.slimvan.xingyun.utils.UCropUtils;
-import com.xingyun.slimvan.base.BaseHeaderActivity;
+import com.xingyun.slimvan.base.BaseActivity;
 import com.xingyun.slimvan.listener.AreaPickerConfirmListener;
 import com.xingyun.slimvan.listener.DialogConfirmClickListener;
 import com.xingyun.slimvan.listener.DialogMultiConfirmClickListener;
@@ -39,7 +39,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class DialogActivity extends BaseHeaderActivity {
+public class DialogActivity extends BaseActivity {
 
     private static final int REQUEST_CODE_CHOOSE = 101;
     @BindView(R.id.tv_ios_dialog)
@@ -75,25 +75,7 @@ public class DialogActivity extends BaseHeaderActivity {
         setContentView(R.layout.activity_dialog);
         ButterKnife.bind(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            toolbar.setTransitionName("personal_dialog");
-        }
         setTitle("Dialog体验");
-    }
-
-    @Override
-    public void onStateLayoutClick() {
-
-    }
-
-    @Override
-    public void onLeftClick(View v) {
-        this.finish();
-    }
-
-    @Override
-    public void onRightClick(View v) {
-        ToastUtils.showShort("Nothing to do");
     }
 
     @OnClick({R.id.tv_ios_dialog, R.id.tv_ios_list_dialog

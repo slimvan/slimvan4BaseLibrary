@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.google.gson.Gson;
-import com.xingyun.slimvan.bean.JsonBean;
+import com.xingyun.slimvan.bean.AreaJsonBean;
 
 import org.json.JSONArray;
 
@@ -40,13 +40,13 @@ public class GetJsonDataUtil {
 
 
 
-    public static ArrayList<JsonBean> parseData(String result) {//Gson 解析
-        ArrayList<JsonBean> detail = new ArrayList<>();
+    public static ArrayList<AreaJsonBean> parseData(String result) {//Gson 解析
+        ArrayList<AreaJsonBean> detail = new ArrayList<>();
         try {
             JSONArray data = new JSONArray(result);
             Gson gson = new Gson();
             for (int i = 0; i < data.length(); i++) {
-                JsonBean entity = gson.fromJson(data.optJSONObject(i).toString(), JsonBean.class);
+                AreaJsonBean entity = gson.fromJson(data.optJSONObject(i).toString(), AreaJsonBean.class);
                 detail.add(entity);
             }
         } catch (Exception e) {
